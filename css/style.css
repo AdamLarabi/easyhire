@@ -1,0 +1,153 @@
+*{
+
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins',sans-serif;
+}
+body{
+
+min-height: 500px;
+background-image: url("674.jpg");
+background-size:cover;
+
+}
+div.test{display: flex;
+    align-items:center;
+    justify-content: center;}
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+section{
+transform: translateY(60px);
+position: relative;
+max-width: 400px;
+background-color: #fff;
+border: 2px solid rgba(19, 8, 87, 0.5);
+border-radius: 20px;
+backdrop-filter: blur(20px);
+padding: 2rem 3rem;
+opacity: 0;
+animation: fadeIn 2s ease-in-out forwards;
+}
+
+
+
+
+h1{font-size: 2rem;
+color: #222;
+text-align: center;}
+
+
+.box{
+    
+    position: relative;
+margin: 30px 0;
+max-width: 310px;
+border-bottom: 2px solid #000000;
+
+}
+.box label {position: absolute;
+top: 50%;
+left:5px;
+transform: translateY(-40%);
+color: #000;
+font-size: 1rem;
+pointer-events: none;
+transition :all 0.5s ease-in;
+
+
+}
+input:focus ~ label,
+input:valid ~ label{
+    top: -5px;
+}
+.box input{
+
+    width: 100%;
+    height: 60px;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 0 35px 0 5px;
+    color: #000;
+    font-family: 'poppins',sans-serif;
+    transform: translateY(10px);
+   
+}
+.box ion-icon{
+position: absolute;
+right: 8px;
+color:#fff;
+font-size: 1.2rem;
+top: 20px;
+
+
+
+}
+.forgot{
+
+    margin: 35px 0;
+    font-size: 0.85rem;
+    color: #000;
+    
+}
+
+.forgot a{
+
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+}
+.forgot a:hover{
+text-decoration: underline;
+
+}
+button{
+width: 100%;
+height: 40px;
+border-radius: 40px;
+background-color: rgb(70, 51, 180);
+border: none;
+outline: none;
+cursor: pointer;
+font-size: 1rem;
+font-weight: 600;
+color: #fff;
+transition: all 0.4s ease;
+
+
+}
+button:hover{background-color: blue;
+color: black;}
+.r{
+
+    font-size: 0.8rem;
+    color: #ddd;
+    font-weight: 600;
+    margin: 25px 20px 10px;
+}
+.r p a{
+
+    text-decoration: none;
+    color: #576db4;
+    font-weight: 600;
+}
+.r p a:hover{text-decoration: underline;
+color: blue;}
+.r p{ color: #000000;
+
+}
+.head{
+color: #fff;
+background:linear-gradient(to right,blue 30%,#fff);
+text-align: left;
+transform: translate(5px);
+padding-left:5px;
+}

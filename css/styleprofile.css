@@ -1,0 +1,238 @@
+body {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+a{
+  text-decoration: none;
+}
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgb(133, 214, 214);
+  color: #fff;
+  padding: 10px 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 25px;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  width: 50px;
+  height: 50px;
+}
+
+.title {
+  font-size: 20px;
+  letter-spacing: 2px;
+  margin-left: 20px;
+}
+
+.navigation {
+  display: flex;
+  align-items: center;
+}
+
+.navigation button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  border: none;
+  background-color: rgb(12, 240, 209);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.navigation button:hover {
+  background-color: #f5630e;
+}
+
+.containerr {
+  margin-top: 100px;
+  padding: 0 20px;
+}
+
+.profile {
+  text-align: center;
+}
+
+.profile img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.profile .nom,
+.profile button {
+  display: block;
+  margin: 0 auto;
+}
+.profile button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: rgb(124, 207, 196);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 10px;
+}
+
+.profile button:hover {
+  background-color: #f5630e;
+}
+
+.about-me textarea {
+  width: 100%;
+  border: none;
+  height: 100px;
+  padding: 10px;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 20px;
+  resize: none;
+  font-size: 15px;
+}
+
+/* maaabraaatch !! */
+
+.profile {
+  background-image: url("./images/back.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.personal-info,
+.other-info,
+.buttons {
+  width: 45%;
+  margin-left: 10px;
+}
+
+.personal-info input,
+.other-info textarea {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: none;
+  border-bottom: 3px solid #ccc;
+  margin-bottom: 20px;
+  transition: border-bottom-color 0.3s ease;
+  font-size: 20px;
+}
+
+.personal-info input:focus,
+.other-info input:focus,
+textarea:focus {
+  border-bottom-color: rgb(124, 207, 196);
+  outline: none;
+}
+
+.other-info textarea {
+  resize: none;
+}
+
+.buttons button {
+  padding: 10px 20px;
+  background-color: rgb(124, 207, 196);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-bottom: 100px;
+}
+
+.buttons button:hover {
+  background-color: #f5630e;
+}
+
+#langues {
+  width: 100%; /* Ajuste la largeur pour remplir le conteneur */
+  padding: 5px; /* Ajoute un peu de rembourrage */
+  border-radius: 5px; /* Ajoute des coins arrondis */
+}
+
+.container-main {
+  display: flex;
+}
+
+.job-suggestions {
+  display: flex;
+  align-self: flex-start;
+  flex-direction: column;
+  background-color: azure;
+}
+
+.right {
+  width: 45%;
+  margin-left: 10px;
+  float: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.left {
+  width: 45%;
+  margin-right: 10px;
+  float: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.job-offers {
+  max-height: 250px;
+  overflow-y: auto;
+  border-bottom: 1px solid rgb(204, 204, 204);
+}
+
+.job-offer {
+  border-bottom: 2px solid rgb(124, 207, 196);
+}
+.job-offer img {
+  width: 50px;
+  width: 50px;
+  width: 50px;
+  height: auto;
+  border-radius: 50%;
+}
+
+footer {
+  display: flex;
+  background-color: rgb(133, 214, 214);
+  padding: 15px 8%;
+  text-align: center;
+}
+
+footer .comptes {
+  text-align: center; /* Centrer les images */
+}
+
+footer .comptes img {
+  width: 30px;
+  width: 30px;
+  width: 30px;
+  height: auto;
+  margin: 0 10px;
+}
+
+footer .copywrite {
+  text-align: left;
+  padding: 0;
+  margin: 0;
+}
+
+footer .client {
+  text-align: center;
+}

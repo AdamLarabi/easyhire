@@ -1,0 +1,100 @@
+*{
+
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'poppins',sans-serif;
+}
+body{
+min-height: 500px;
+background-image: url("674.jpg");
+background-size:cover;}
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  div.test{display: flex;
+    align-items:center;
+    justify-content: center;}
+section.se1{
+    transform: translateY(70px);
+    position: relative;
+    max-width: 700px;
+    background-color: white;
+    border: 2px solid rgba(3, 3, 3, 0.5);
+    border-radius: 20px;
+    opacity: 0;
+   
+    
+    padding: 2rem 2rem;
+    animation: fadeIn 1s ease-in-out forwards;
+    
+    }
+   
+    section.se2{
+        transform: translateY(100px);
+        position: relative;
+        max-width: 1200px;
+        background-color: transparent;
+        border: 2px solid rgba(3, 3, 3, 0.5);
+        border-radius: 20px;
+        backdrop-filter: blur(100px);
+        
+        padding: 2rem 3rem; 
+        animation: fadeIn 2s ease-in forwards;
+        
+  
+        }
+    input{
+      padding-left: 1rem;
+        border-radius: 10px;
+      text-align: left;
+        width: 35%;
+        font-size: 1rem;
+        padding-top: 7px;
+        padding-bottom: 7px;
+      background-color:#eee;
+    }
+    input:focus{background-color: white;}
+label.right{
+    margin-right: 14%;
+
+}
+
+h2{text-align: center;}
+button{
+    width: 200px;
+    height: 40px;
+    border-radius: 40px;
+    background-color: rgb(70, 51, 180);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.4s ease;
+    translate: 100px;
+    margin-top: 20px;
+   
+    }
+    label{   font-family: 'poppins',sans-serif;}
+    button:hover{background-color:blue;}
+    .head{
+      color: #fff;
+      background:linear-gradient(to right,blue 30%,#fff);
+      text-align: left;
+      transform: translate(5px);
+      padding-left:5px;
+      }
+
+.droite{margin-left: 150px;}
+.ldroite{margin-left: 315px;}
+.lposte{margin-left: 280px;}
+.ladresse{margin-left: 240px;}
+.lconf{margin-left: 305px;}
+.ltel{margin-left: 330px;}
+.lposte1{margin-left: 300px;}
