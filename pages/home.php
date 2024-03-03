@@ -1,3 +1,19 @@
+<?php
+$host = 'localhost';
+$user = 'root';
+$pass = '';
+$db = 'inscription';
+$conn = mysqli_connect($host, $user, $pass, $db);
+
+if (!$conn) {
+    die("Échec de la connexion : " . mysqli_connect_error());
+}
+session_start();
+
+$sql = ' SELECT * FROM candidat';
+$all = mysqli_query($conn, $sql);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,6 +23,7 @@
     <title>Easy Hire</title>
     <link rel="stylesheet" href="../css/home.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 </head>
 
 <body>
@@ -64,12 +81,17 @@
             <div class="content">
                 <div class="project-card">
                     <div class="project-image">
-                        <img name="image" src="../img/icon.png" />
+                        <img name="image" src="<?php echo $_SESSION['image'] ?>" />
                     </div>
                     <div class="project-info">
-                        <p class="project-category" name="nom"> Adam Larabi </p>
+                        <p class="project-category" name="nom">
+                            <?php echo $_SESSION['prenom'] . " " . $_SESSION['nom'] ?>
+                        </p>
                         <strong class="project-title">
-                            <span name="description">Developper</span>
+                            <span name="description">
+                                <?php echo $_SESSION['poste'] ?>
+                            </span>
+                            <br>
                             <a href="profile.php" class="more-details">Voir profile</a>
                         </strong>
                     </div>
@@ -80,10 +102,27 @@
             <div class="publication-container">
                 <div class="publication-post">
                     <div class="publication-image">
-                        <img name="image" src="../img/icon.png" />
+                        <img name="image" src="<?php $_SESSION['image'] ?>" />
+                    </div>
+                    <div id="fenetre" class="fenetre">
+                        <div class="fenetre-content">
+                            <span class="close" onclick="afficherConfirmation()">x</span>
+                            <textarea id="content" class="area"
+                                placeholder=" De quoi souhaitez-vous discuter"></textarea>
+                            <label for="fileInput" class="custom-file-upload">Choisir un fichier</label>
+                            <input type="file" id="fileInput" class="fenetre-file">
+                            <button onclick="publishPost()">Publier</button>
+                        </div>
+                    </div>
+                    <div id="confirmationModal" class=" abandonner">
+                        <div class="abandonner-content">
+                            <p>Êtes-vous sûr de vouloir abandonner ?</p>
+                            <button class="fenetre-abandonner" onclick="abandonner()">Abandonner</button>
+                            <button onclick="continuer()">Continuer</button>
+                        </div>
                     </div>
                     <div>
-                        <input type="text" placeholder="Commencer un post" name="poste">
+                        <input type="text" placeholder="commencer un post" name="poste" onclick="openModal()">
                     </div>
                 </div>
                 <div class="publication-plus">
@@ -104,8 +143,7 @@
                         </li>
                         <li>
                             <div>
-                                <a href="#ofr"><i class='bx bxs-edit-alt'>Poster</i></a>
-
+                                <a href="#" onclick="openModal();"><i class='bx bxs-edit-alt'>Poster</i></a>
                                 <!-- ouvrir une petite fentre pour poster -->
                             </div>
                         </li>
@@ -116,98 +154,30 @@
 
         <section id="experience">
             <div class="add">
-                <h2>Ajouter votre fil d'actualites :</h2>
-                <div class="add-exp">
-                    <div class="exp-img">
-                        <img src=" ../img/icon.png" name="bdd_image" alt="image of ppl">
-                    </div>
-                    <div class="exp-txt">
-                        <h4 name="bdd_nom">Adam Larabi</h4>
-                        <p name="bdd_description">Developper</p>
-                        <buttonn name="suivre"><i class='bx bx-user-plus'></i>Suivre</button>
-                    </div>
-                </div>
-                <div class="add-exp">
-                    <div class="exp-img">
-                        <img src=" ../img/icon.png" alt="image of ppl">
-                    </div>
-                    <div class="exp-txt">
-                        <h4>Adam Larabi</h4>
-                        <p>Developper</p>
-                        <button><i class='bx bx-user-plus'></i>Suivre</button>
-                    </div>
-                </div>
-                <div class="add-exp">
-                    <div class="exp-img">
-                        <img src=" ../img/icon.png" alt="image of ppl">
-                    </div>
-                    <div class="exp-txt">
-                        <h4>Adam Larabi</h4>
-                        <p>Developper</p>
-                        <button><i class='bx bx-user-plus'></i>Suivre</button>
-                    </div>
-                </div>
-                <div class="add-exp">
-                    <div class="exp-img">
-                        <img src=" ../img/icon.png" alt="image of ppl">
-                    </div>
-                    <div class="exp-txt">
-                        <h4>Adam Larabi</h4>
-                        <p>Developper</p>
-                        <button><i class='bx bx-user-plus'></i>Suivre</button>
-                    </div>
-                </div>
-                <div class="add-exp">
-                    <div class="exp-img">
-                        <img src=" ../img/icon.png" alt="image of ppl">
-                    </div>
-                    <div class="exp-txt">
-                        <h4>Adam Larabi</h4>
-                        <p>Developper</p>
-                        <button><i class='bx bx-user-plus'></i>Suivre</button>
-                    </div>
-                </div>
-                <div class="add-exp">
-                    <div class="exp-img">
-                        <img src=" ../img/icon.png" alt="image of ppl">
-                    </div>
-                    <div class="exp-txt">
-                        <h4>Adam Larabi</h4>
-                        <p>Developper</p>
-                        <button><i class='bx bx-user-plus'></i>Suivre</button>
-                    </div>
-                </div>
-                <div class="add-exp">
-                    <div class="exp-img">
-                        <img src="../ img/icon.png" alt="image of ppl">
-                    </div>
-                    <div class="exp-txt">
-                        <h4>Adam Larabi</h4>
-                        <p>Developper</p>
-                        <button><i class='bx bx-user-plus'></i>Suivre</button>
-                    </div>
-                </div>
-                <div class="add-exp">
-                    <div class="exp-img">
-                        <img src=" ../img/icon.png" alt="image of ppl">
-                    </div>
-                    <div class="exp-txt">
-                        <h4>Adam Larabi</h4>
-                        <p>Developper</p>
-                        <button><i class='bx bx-user-plus'></i>Suivre</button>
-                    </div>
-                </div>
-                <div class="add-exp">
-                    <div class="exp-img">
-                        <img src=" ../img/icon.png" alt="image of ppl">
-                    </div>
-                    <div class="exp-txt">
-                        <h4>Adam Larabi</h4>
-                        <p>Developper</p>
-                        <button><i class='bx bx-user-plus'></i>Suivre</button>
-                    </div>
-                </div>
+                <h2>Ajouter a votre fil d'actualites :</h2>
+                <?php
+                while ($row = mysqli_fetch_assoc($all)) {
+                    ?>
 
+                    <div class="add-exp">
+                        <div class="exp-img">
+                            <img src="<?php echo $row["image"]; ?>" name="bdd_image" alt="">
+                        </div>
+                        <div class="exp-txt">
+                            <h4 name="bdd_nom">
+                                <?php echo $row["prenom"] . " " . $row["nom"]; ?>
+                            </h4>
+                            <p name="bdd_description">
+                                <?php echo $row["poste"];
+                                ?>
+                            </p>
+                            <button name="suivre"><i class='bx bx-user-plus'></i>Suivre</button>
+                        </div>
+                    </div>
+
+                    <?php
+                }
+                ?>
             </div>
         </section>
     </main>
@@ -263,7 +233,7 @@
             <div class=" art-comment ">
                 <div class=" comment">
                     <div class="publication-image">
-                        <img src="../img/icon.png" />
+                        <img src="<?php $_SESSION['image'] ?>" />
                     </div>
                     <div>
                         <input type="text" placeholder="Ajouter un commentaire">
@@ -298,6 +268,8 @@
     <footer>
         <p>&copy; 2024 Easy Hire. All rights reserved.</p>
     </footer>
+
+    <script src="../js/home.js"></script>
 </body>
 
 </html>

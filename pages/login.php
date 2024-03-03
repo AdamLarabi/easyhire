@@ -49,25 +49,52 @@
   if (!$conn) {
     die("Échec de la connexion : " . mysqli_connect_error());
   }
-
+  session_start();
 
   if (isset($_POST['valide'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
+
     $stmt = $conn->prepare("SELECT id_log,email,password FROM login WHERE email = ?");
+
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
       $row = $result->fetch_assoc();
+      //table candidat
+      $st1 = $conn->prepare("SELECT * FROM candidat WHERE email = ?");
+      $st1->bind_param("s", $email);
+      $st1->execute();
+      $res1 = $st1->get_result();
+      if ($res1->num_rows > 0) {
+        $ligne1 = $res1->fetch_assoc();
+      }
+      //table recruteur
+      $st2 = $conn->prepare("SELECT * FROM recruteur WHERE email = ?");
+      $st2->bind_param("s", $email);
+      $st2->execute();
+      $res2 = $st2->get_result();
+      if ($res2->num_rows > 0) {
+        $ligne2 = $res2->fetch_assoc();
+      }
+      //back to test
       $id = $row['id_log'];
       if ($password == $row['password'] && $email == $row['email']) {
-        if ($id >= 100000) {
+        if ($id >= 100000) {//recruteur
+          $_SESSION['prenom'] = $ligne2['prenom'];
+          $_SESSION['nom'] = $ligne2['nom'];
+          $_SESSION['image'] = $ligne2['image'];
+          $_SESSION['poste'] = $ligne2['poste'];
           header("location:home.php");
           exit();
-        } else {
+        } else {//candidat
+          $_SESSION['prenom'] = $ligne1['prenom'];
+          $_SESSION['nom'] = $ligne1['nom'];
+          $_SESSION['image'] = $ligne1['image'];
+          $_SESSION['poste'] = $ligne1['poste'];
           header("location:home.php");
           exit();
 
