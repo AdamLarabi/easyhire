@@ -13,7 +13,38 @@ session_start();
 $sql = ' SELECT * FROM candidat';
 $all = mysqli_query($conn, $sql);
 ?>
+<?php
+//pour stockée les postes dans bd
+$host = 'localhost';
+$user = 'root';
+$pass = '';
+$db = 'inscription';
+$conn = mysqli_connect($host, $user, $pass, $db);
 
+if (!$conn) {
+    die("La connexion a échoué : " . mysqli_connect_error());
+}
+
+if(isset($_POST['pub'])) {
+    $query_max_id = "SELECT MAX(id_poste) AS max_id FROM poste";
+        $result_max_id = mysqli_query($conn, $query_max_id);
+        $row_max_id = mysqli_fetch_assoc($result_max_id);
+        $id = $row_max_id['max_id'] + 1;
+    $nom = $_SESSION['prenom'] ;
+    $prenom=$_SESSION['nom'];
+    $com=$nom.''.$prenom;
+    $file=$_FILES['image']['name'];
+    $textposte = $_POST['textposte'];
+    $insert = "INSERT INTO poste  VALUES ('$id','$com', '$textposte', '$file')";
+
+    $q=mysqli_query($conn,$insert);
+    if($q) {
+       $upload_path = "uploads/"; 
+        move_uploaded_file($_FILES['image']['tmp_name'], $upload_path . $file);
+    }
+}mysqli_close($conn);   
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -184,81 +215,93 @@ $all = mysqli_query($conn, $sql);
 
 
 
-    <article>
-        <div class="article">
-            <div class="art">
-                <div class="art-img">
-                    <img src=" ../img/icon.png" alt="image of ppl" name="post_image">
-                </div>
-                <div class="art-txt">
-                    <h4 name="post_nom">Adam Larabi</h4>
-                    <p name="post_description">Developper</p>
-                </div>
-                <div class="etat">
-                    <p>• followed</p>
-                    <!-- button de follow -->
-                </div>
-            </div>
-            <div class="art-pub">
-                <div class="pub-p">
-                    <p name="post_pub_parag">Thrilled to announce that I've successfully completed my AWS Machine
-                        Learning track! 🎉
+    <?php
+   if(isset($_POST['pub'])){
+ $host = 'localhost';
+$user = 'root';
+$pass = '';
+$db = 'inscription';
+$conn = mysqli_connect($host, $user, $pass, $db);
 
-                        It's been an incredible journey of learning and growth, and I'm excited to take the next step in
-                        my
-                        career.
-                        Stay tuned because I'll soon be releasing my AWS Machine Learning training models, bringing
-                        cutting-edge solutions to life!</p>
-                </div>
-                <div class="pub-doc">
-                    <img src="../img/icon.png" alt="post" name="post_pub_doc">
-                </div>
+if (!$conn) {
+    die("La connexion a échoué : " . mysqli_connect_error());
+}
+$req="SELECT * from poste";
+$q=mysqli_query($conn,$req);
+if (mysqli_num_rows($q) == 0) {
+    
+    echo "Aucun résultat trouvé.";
+} else {
+    
+while ($row = mysqli_fetch_array($q)){
+   
+    echo " <article>
+    <div class='article'>
+        <div class='art'>
+            <div class='art-img'>
+                <img src=' ../img/icon.png' alt='image of ppl' name='post_image'>
             </div>
-            <div class="seperator">
+            <div class='art-txt'>
+                <h4 name='post_nom'>Adam Larabi</h4>
+                <p name='post_description'>Developper</p>
             </div>
-            <div class="analytics">
-                <button class="data">
+            <div class='etat'>
+                <p>• followed</p>
+                <!-- button de follow -->
+            </div>
+        </div>
+        <div class='art-pub'>
+            <div class='pub-p'>
+            <p name='post_pub_parag'>" . $row['post'] . "</p> <br>
+            <img src='uploads/".$row['image']."' class='my-3' style='width:400px;height:400px;transform:translateX(20px);'>
+            </div>
+            </div>
+            <div class='seperator'>
+            </div>
+            <div class='analytics'>
+                <button class='data'>
                     <i class='bx bx-heart'></i>
                     <span>2,5K</span>
                 </button>
-                <button class="data">
+                <button class='data'>
                     <i class='bx bx-comment'></i>
                     <span>1224</span>
                 </button>
-                <button class="data">
+                <button class='data'>
                     <i class='bx bx-share'></i>
                     <span>111</span>
                 </button>
             </div>
-            <div class=" art-comment ">
-                <div class=" comment">
-                    <div class="publication-image">
-                        <img src="<?php $_SESSION['image'] ?>" />
-                    </div>
+            <div class='art-comment '>
+                <div class=' comment'>
+                    
                     <div>
-                        <input type="text" placeholder="Ajouter un commentaire">
+                        <input type='text' placeholder='Ajouter un commentaire'>
                     </div>
                 </div>
-                <div class="comment-plus">
+                <div class='comment-plus'>
                     <ul>
                         <li>
                             <div>
-                                <a href="#ac" class="icon">
+                                <a href='#ac' class='icon'>
                                     <i class='bx bxs-image'></i>
                                 </a>
                             </div>
                         </li>
                         <li>
-                            <div class="icon">
-                                <a href="#res"><i class='bx bxs-smile'></i></a>
+                            <div class='icon'>
+                                <a href='#res'><i class='bx bxs-smile'></i></a>
                             </div>
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> <br> <br>
         </div>
-
-    </article>
+                </article>";
+} }
+mysqli_close($conn);
+   }
+?>
     <!-- <form action="" method="POST"> <button class="btn save-btn" name="sube">Enregistrer</button></form>
     <?php
     /*if (isset($_POST['sube'])) {
