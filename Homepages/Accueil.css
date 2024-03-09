@@ -40,7 +40,7 @@ header h1 {
 }
 .page1{
     height: 600px;
-    background-image: url(img/page2.jpg);
+    background-image: url(../img/page2.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -87,7 +87,10 @@ header h1 {
     gap: 2rem;
 }
 .page2 h1{
-    margin: 40px;
+    padding: 10px;
+    margin-left: 10px;
+    border-left: 5px solid rgb(27, 129, 189);
+    width: 100%;
    
 }
 .page2 h3{
@@ -112,24 +115,27 @@ header h1 {
     align-items: center;
     flex-wrap: wrap;
     gap: 2rem;
+    margin-bottom: 20px;;
     
 }
 .page3 h1{
+    text-align: center;
     padding: 10px;
+    margin: 30px;
+    margin-left: 110px;;
     border-left: 5px solid rgb(27, 129, 189);
-    width: 80%;
+    width: 100%;
 }
 .page3 div {
     border-left: 5px solid rgb(27, 129, 189);
     box-shadow:10px 0 10px 0 rgb(115, 162, 177);
     width: 200px;
     text-align: center;
+    padding: 20px;
     height: 120px;
+    cursor: pointer;
 } 
-.page3 div:hover {
-    width: 205px;
-    opacity: 0.8s;
-}
+
 
 footer {
     background-color: rgb(68, 154, 235);

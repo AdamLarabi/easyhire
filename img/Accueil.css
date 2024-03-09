@@ -126,10 +126,7 @@ header h1 {
     text-align: center;
     height: 120px;
 } 
-.page3 div:hover {
-    width: 205px;
-    opacity: 0.8s;
-}
+
 
 footer {
     background-color: rgb(68, 154, 235);
