@@ -52,3 +52,7 @@ document.addEventListener("keydown", function (event) {
     afficherConfirmation();
   }
 });
+
+window.onload = function () {
+  document.getElementById("pub").disabled = true;
+};

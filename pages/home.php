@@ -1,50 +1,38 @@
 <?php
-$host = 'localhost';
-$user = 'root';
-$pass = '';
-$db = 'inscription';
-$conn = mysqli_connect($host, $user, $pass, $db);
+@include 'config.php';
 
-if (!$conn) {
-    die("Échec de la connexion : " . mysqli_connect_error());
-}
 session_start();
 
 $sql = ' SELECT * FROM candidat';
 $all = mysqli_query($conn, $sql);
-?>
-<?php
-//pour stockée les postes dans bd
-$host = 'localhost';
-$user = 'root';
-$pass = '';
-$db = 'inscription';
-$conn = mysqli_connect($host, $user, $pass, $db);
 
-if (!$conn) {
-    die("La connexion a échoué : " . mysqli_connect_error());
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['commenter'])) {
+    header("Location: {$_SERVER['REQUEST_URI']}");
 }
 
-if(isset($_POST['pub'])) {
+
+//pour stockée les postes dans bd
+if (isset($_POST['pub'])) {
     $query_max_id = "SELECT MAX(id_poste) AS max_id FROM poste";
-        $result_max_id = mysqli_query($conn, $query_max_id);
-        $row_max_id = mysqli_fetch_assoc($result_max_id);
-        $id = $row_max_id['max_id'] + 1;
-    $nom = $_SESSION['prenom'] ;
-    $prenom=$_SESSION['nom'];
-    $com=$nom.''.$prenom;
-    $file=$_FILES['image']['name'];
+    $result_max_id = mysqli_query($conn, $query_max_id);
+    $row_max_id = mysqli_fetch_assoc($result_max_id);
+    $id = $row_max_id['max_id'] + 1;
+    $nom = $_SESSION['prenom'];
+    $prenom = $_SESSION['nom'];
+    $com = $nom . ' ' . $prenom;
+    $file = $_FILES['image']['name'];
     $textposte = $_POST['textposte'];
     $insert = "INSERT INTO poste  VALUES ('$id','$com', '$textposte', '$file')";
 
-    $q=mysqli_query($conn,$insert);
-    if($q) {
-       $upload_path = "uploads/"; 
+    $q = mysqli_query($conn, $insert);
+    if ($q) {
+        $upload_path = "uploads/";
         move_uploaded_file($_FILES['image']['tmp_name'], $upload_path . $file);
     }
-}mysqli_close($conn);   
+}
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -100,9 +88,31 @@ if(isset($_POST['pub'])) {
                 </div>
             </li>
             <li>
-                <div>
-
-                    <a href="#para"><i class='bx bxs-cog'></i>Parametre</a>
+                <div name='mouse-test'>
+                    <a href="#" id="parametre"> <i class='bx bxs-cog'></i>Parametre</a>
+                    <div id="menu" class="menu">
+                        <a href="profile.php">Profil</a>
+                        <a href="#">Aide et assistance</a>
+                        <a href="#">Donner votre avis</a>
+                        <a href="#apres">Se déconnecter</a>
+                    </div>
+                    <script>
+                        var parametre = document.getElementById("parametre");
+                        var menu = document.getElementById("menu");
+                        parametre.addEventListener("mouseover", toggleMenu);
+                        menu.addEventListener("mouseleave", hide);
+                        function toggleMenu() {
+                            var displayStyle = window.getComputedStyle(menu).getPropertyValue("display");
+                            if (displayStyle === "none") {
+                                menu.style.display = "block";
+                            } else {
+                                menu.style.display = "none";
+                            }
+                        }
+                        function hide() {
+                            menu.style.display = "none";
+                        }
+                    </script>
                 </div>
             </li>
         </ul>
@@ -138,11 +148,13 @@ if(isset($_POST['pub'])) {
                     <div id="fenetre" class="fenetre">
                         <div class="fenetre-content">
                             <span class="close" onclick="afficherConfirmation()">x</span>
-                            <textarea id="content" class="area"
-                                placeholder=" De quoi souhaitez-vous discuter"></textarea>
-                            <label for="fileInput" class="custom-file-upload">Choisir un fichier</label>
-                            <input type="file" id="fileInput" class="fenetre-file">
-                            <button onclick="publishPost()">Publier</button>
+                            <form action="" method="POST" enctype="multipart/form-data">
+                                <textarea id="content" class="area" name="textposte"
+                                    placeholder=" De quoi souhaitez-vous discuter"></textarea>
+                                <label for="fileInput" class="custom-file-upload">Choisir un fichier</label>
+                                <input type="file" id="fileInput" class="fenetre-file" name="image">
+                                <button onclick="publishPost()" name="pub" type="submit">Publier</button>
+                            </form>
                         </div>
                     </div>
                     <div id="confirmationModal" class=" abandonner">
@@ -216,103 +228,117 @@ if(isset($_POST['pub'])) {
 
 
     <?php
-   if(isset($_POST['pub'])){
- $host = 'localhost';
-$user = 'root';
-$pass = '';
-$db = 'inscription';
-$conn = mysqli_connect($host, $user, $pass, $db);
 
-if (!$conn) {
-    die("La connexion a échoué : " . mysqli_connect_error());
-}
-$req="SELECT * from poste";
-$q=mysqli_query($conn,$req);
-if (mysqli_num_rows($q) == 0) {
-    
-    echo "Aucun résultat trouvé.";
-} else {
-    
-while ($row = mysqli_fetch_array($q)){
-   
-    echo " <article>
-    <div class='article'>
-        <div class='art'>
-            <div class='art-img'>
-                <img src=' ../img/icon.png' alt='image of ppl' name='post_image'>
-            </div>
-            <div class='art-txt'>
-                <h4 name='post_nom'>Adam Larabi</h4>
-                <p name='post_description'>Developper</p>
-            </div>
-            <div class='etat'>
-                <p>• followed</p>
-                <!-- button de follow -->
-            </div>
-        </div>
-        <div class='art-pub'>
-            <div class='pub-p'>
-            <p name='post_pub_parag'>" . $row['post'] . "</p> <br>
-            <img src='uploads/".$row['image']."' class='my-3' style='width:400px;height:400px;transform:translateX(20px);'>
-            </div>
-            </div>
-            <div class='seperator'>
-            </div>
-            <div class='analytics'>
-                <button class='data'>
-                    <i class='bx bx-heart'></i>
-                    <span>2,5K</span>
-                </button>
-                <button class='data'>
-                    <i class='bx bx-comment'></i>
-                    <span>1224</span>
-                </button>
-                <button class='data'>
-                    <i class='bx bx-share'></i>
-                    <span>111</span>
-                </button>
-            </div>
-            <div class='art-comment '>
-                <div class=' comment'>
-                    
-                    <div>
-                        <input type='text' placeholder='Ajouter un commentaire'>
+
+    $req = "SELECT * from poste";
+    $q = mysqli_query($conn, $req);
+    if (mysqli_num_rows($q) == 0) {
+
+        echo "Aucun résultat trouvé.";
+    } else {
+        try {
+
+            while ($row = mysqli_fetch_array($q)) {
+                ?>
+                <article>
+                    <div class='article'>
+                        <div class='art'>
+                            <div class='art-img'>
+                                <img src=' ../img/icon.png' alt='image of ppl' name='post_image'>
+                            </div>
+                            <div class='art-txt'>
+                                <h4 name='post_nom'>
+                                    <?php echo $row['nom_prenom'] ?>
+                                </h4>
+                                <p name='post_description'>Developper</p>
+                            </div>
+                            <div class='etat'>
+                                <p>• followed</p>
+                                <!-- button de follow -->
+                            </div>
+                        </div>
+                        <div class='art-pub'>
+                            <div class='pub-p'>
+                                <p name='post_pub_parag'>
+                                    <?php echo $row['post'] ?>
+                                </p> <br>
+                                <?php echo "<img src='uploads/{$row['image']}' class='my-3' 
+                                style='width:400px;height:400px;transform:translateX(20px); position: relative; z-index: -1;'>"; ?>
+                            </div>
+                        </div>
+                        <div class='seperator'>
+                        </div>
+                        <div class='analytics'>
+                            <button class='data'>
+                                <i class='bx bx-heart'></i>
+                                <span>2,5K</span>
+                            </button>
+                            <button class='data'>
+                                <i class='bx bx-comment'></i>
+                                <span>1224</span>
+                            </button>
+                        </div>
+                        <div class='art-comment '>
+                            <div class=' comment'>
+                                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
+                                    <?php
+                                    $reqq = "SELECT * FROM commentaire WHERE idp = " . $row['id_poste'];
+                                    $qq = mysqli_query($conn, $reqq);
+                                    while ($roww = mysqli_fetch_array($qq)) {
+                                        echo '<div>'
+                                            . $roww['contenue'] .
+                                            '</div>';
+                                    }
+                                    if (isset($_POST['commenter']) && $_POST['post_id'] == $row['id_poste']) {
+                                        $comment = mysqli_real_escape_string($conn, $_POST['comment']);
+                                        $idx = $_SESSION['idx'];
+                                        $idp = $row['id_poste'];
+                                        $query_max_id = "SELECT MAX(idc) AS max_id FROM commentaire";
+                                        $result_max_id = mysqli_query($conn, $query_max_id);
+
+                                        $row_max_id = mysqli_fetch_assoc($result_max_id);
+                                        $id = $row_max_id['max_id'] + 1;
+
+                                        $insert = "INSERT INTO commentaire (idc, idx, contenue, idp) VALUES ('$id','$idx', '$comment', '$idp')";
+                                        $qqq = mysqli_query($conn, $insert);
+
+                                        if (!$qqq) {
+                                            echo "Erreur lors de l'insertion du commentaire: " . mysqli_error($conn);
+                                        } else {
+                                            echo '<div>'
+                                                . $comment .
+                                                '</div>';
+                                        }
+                                        // $comment = '';
+                                    }
+                                    ?>
+                                    <input type='text' placeholder='Ajouter un commentaire' name='comment'>
+                                    <input type='hidden' name='post_id' value='<?php echo $row['id_poste']; ?>'>
+                                    <button class='data drop-box' name='commenter'>
+                                        <i class='bx bxs-send'></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div> <br>
                     </div>
-                </div>
-                <div class='comment-plus'>
-                    <ul>
-                        <li>
-                            <div>
-                                <a href='#ac' class='icon'>
-                                    <i class='bx bxs-image'></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class='icon'>
-                                <a href='#res'><i class='bx bxs-smile'></i></a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div> <br> <br>
-        </div>
-                </article>";
-} }
-mysqli_close($conn);
-   }
-?>
-    <!-- <form action="" method="POST"> <button class="btn save-btn" name="sube">Enregistrer</button></form>
-    <?php
-    /*if (isset($_POST['sube'])) {
-        header("location:home.php");
-    }*/
-    ?> -->
+                </article>
+                <br>
+                <?php
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
+
+        }
+        // mysqli_close($conn);
+    }
+
+
+    ?>
     <footer>
         <p>&copy; 2024 Easy Hire. All rights reserved.</p>
     </footer>
 
-    <script src="../js/home.js"></script>
+    <script src=" ../js/home.js"></script>
 </body>
 
 </html>
