@@ -3,9 +3,7 @@ body {
   margin: 0;
   padding: 0;
 }
-a{
-  text-decoration: none;
-}
+
 header {
   position: fixed;
   top: 0;
@@ -37,7 +35,7 @@ header {
 .title {
   font-size: 20px;
   letter-spacing: 2px;
-  margin-left: 20px;
+  margin-left: 163px;
 }
 
 .navigation {
@@ -66,6 +64,13 @@ header {
 
 .profile {
   text-align: center;
+}
+
+.profile .comptes img {
+  width: 30px;
+  height: auto; /* Laisser la hauteur s'ajuster automatiquement */
+  margin: 0 10px; /* Ajouter un peu d'espace entre les images */
+  margin-right: 53px;
 }
 
 .profile img {
@@ -106,12 +111,10 @@ header {
   font-size: 15px;
 }
 
-/* maaabraaatch !! */
-
 .profile {
-  background-image: url("./images/back.jpg");
-  background-size: cover;
-  background-position: center;
+  background-image: url("../img/backgroundd.png"); /* Chemin de votre image de fond */
+  background-size: cover; /* L'image de fond couvrira toute la partie de la div */
+  background-position: center; /* Centre l'image de fond */
 }
 
 .personal-info,
@@ -165,26 +168,27 @@ textarea:focus {
 
 .container-main {
   display: flex;
+  width: 100%;
 }
 
 .job-suggestions {
   display: flex;
-  align-self: flex-start;
+  align-self: flex-end;
   flex-direction: column;
   background-color: azure;
+  width: 300px;
 }
 
 .right {
   width: 45%;
   margin-left: 10px;
-  float: right;
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .left {
-  width: 45%;
+  width: 55%;
   margin-right: 10px;
   float: left;
   display: flex;
@@ -202,10 +206,8 @@ textarea:focus {
 }
 .job-offer img {
   width: 50px;
-  width: 50px;
-  width: 50px;
-  height: auto;
-  border-radius: 50%;
+  height: auto; /* Laisse la hauteur se redimensionner automatiquement pour conserver les proportions */
+  border-radius: 50%; /* Pour rendre l'image ronde, si nécessaire */
 }
 
 footer {
@@ -215,24 +217,10 @@ footer {
   text-align: center;
 }
 
-footer .comptes {
-  text-align: center; /* Centrer les images */
-}
-
-footer .comptes img {
-  width: 30px;
-  width: 30px;
-  width: 30px;
-  height: auto;
-  margin: 0 10px;
-}
-
-footer .copywrite {
-  text-align: left;
+footer .copywrite h3 {
+  text-align: left; /* Aligner le texte vers la droite */
   padding: 0;
   margin: 0;
-}
-
-footer .client {
-  text-align: center;
+  color: #fff;
+  font-weight: bold;
 }
