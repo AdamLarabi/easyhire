@@ -27,10 +27,9 @@ if(isset($_POST['submit'])) {
 
             
             $text = $pdf->getText();
-            echo $text;
 
-            
-            $textArray = str_word_count($text, 1);
+            $textArray = explode("\n",$text);
+            //$textArray = str_word_count($text, 1);
         } else {
             $statusMsg = '<p>only PDF file </p>';
         }
@@ -45,5 +44,71 @@ if(isset($_POST['submit'])) {
     
     var textArray = <?php echo json_encode($textArray); ?>;
     console.log(textArray.length);
-    console.log(textArray[1]); 
+        let array2=[];
+        let array3=[];
+        let array4=[];
+        let array5=[];
+        let mot;
+        for(let i=0;i<textArray.length;i++){
+            if(textArray[i]=='Competences : '){
+                let k=i;
+                let j=0;
+                i++;
+                while(textArray[i]!=" "){
+                    array2[j]=textArray[i];
+                    i++;
+                    j++;
+                }
+                break;
+            }
+        }
+        for(let i=0;i<textArray.length;i++){
+            if(textArray[i]=='Duree d’ Experience : '){
+                let k=i;
+                let j=0;
+                i++;
+                while(textArray[i]!=" "){
+                    array3[j]=textArray[i];
+                    i++;
+                    j++;
+                }
+                break;
+            }
+        }
+        for(let i=0;i<textArray.length;i++){
+            if(textArray[i]=='Certeficat : '){
+                let k=i;
+                let j=0;
+                i++;
+                while(textArray[i]!=" "){
+                    array4[j]=textArray[i];
+                    i++;
+                    j++;
+                }
+                break;
+            }
+        }
+        for(let i=0;i<textArray.length;i++){
+            if(textArray[i]=='Education : '){
+                let k=i;
+                let j=0;
+                i++;
+                while(textArray[i]!=" "){
+                    for(let x=0;x<textArray.length;x++){
+                        array5[j]=textArray[i].split(" ");
+                    }
+                    mot=array5[0][0];
+                    i++;
+                    j++;
+                    break;
+                }
+                break;
+                //le mot ne prendre que les valeur licence master doctorat
+            }
+        }
+        console.log(array2);
+        console.log(array3);
+        console.log(array4);
+        console.log(mot);
+    console.log(textArray); // Output the JavaScript array length to console
 </script>
