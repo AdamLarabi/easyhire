@@ -1,14 +1,14 @@
-function Like() {
-    var button = document.getElementById('like');
-    var countElement = document.getElementById('likes');
+document.querySelectorAll(".likeBtn").forEach((button) => {
+  button.addEventListener("click", () => {
+    var countElement = button.querySelector(".likes");
     var count = parseInt(countElement.innerHTML);
 
     if (button.click) {
-        count++;
+      count++;
     } else {
-        count--;
+      count--;
     }
-
     countElement.innerHTML = count;
-    button.click = !button.click; 
-}
+    button.click = !button.click;
+  });
+});

@@ -122,27 +122,25 @@ if (isset($_POST['pub'])) {
             <div class="content">
                 <div class="project-card">
                     <div class="project-image">
-                    <?php
-                     $id=$_SESSION['idx'];
-                   
-                     $req1 = "SELECT image from recruteur where IDR=$id";
-                     $q1 = mysqli_query($conn, $req1);
-                     $req2 = "SELECT image from candidat where idc=$id";
-                     $q2 = mysqli_query($conn, $req2);
-                    
-                     if (mysqli_num_rows($q1)>0)
-                     { $row_i = mysqli_fetch_assoc($q1);
-                        echo "<img src='uploads/".$row_i['image']."' style='width:100%;height:170px;'>";
-                    }
+                        <?php
+                        $id = $_SESSION['idx'];
 
-                     else if(mysqli_num_rows($q2)>0)
-                     { $row_i = mysqli_fetch_assoc($q2);
-                        echo "<image src='uploads/".$row_i['image']."' style='width:100%;height:170px;'>";}
-                        else {
+                        $req1 = "SELECT image from recruteur where IDR=$id";
+                        $q1 = mysqli_query($conn, $req1);
+                        $req2 = "SELECT image from candidat where idc=$id";
+                        $q2 = mysqli_query($conn, $req2);
+
+                        if (mysqli_num_rows($q1) > 0) {
+                            $row_i = mysqli_fetch_assoc($q1);
+                            echo "<img src='uploads/" . $row_i['image'] . "' style='width:100%;height:170px;'>";
+                        } else if (mysqli_num_rows($q2) > 0) {
+                            $row_i = mysqli_fetch_assoc($q2);
+                            echo "<image src='uploads/" . $row_i['image'] . "' style='width:100%;height:170px;'>";
+                        } else {
                             echo "Aucune image trouvée pour cet utilisateur.";
                         }
-                     
-                     ?>
+
+                        ?>
 
                     </div>
                     <div class="project-info">
@@ -290,9 +288,9 @@ if (isset($_POST['pub'])) {
                         <div class='seperator'>
                         </div>
                         <div class='analytics'>
-                        <button class='data' id="like" onclick=Like()>
+                            <button id="like" class='data likeBtn'>
                                 <i class='bx bx-heart'></i>
-                                <span id="likes">0</span>
+                                <span id="likes" class="likes">0</span>
                             </button>
                             <button class='data'>
                                 <i class='bx bx-comment'></i>
