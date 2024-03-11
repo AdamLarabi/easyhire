@@ -11,7 +11,7 @@
 <body>
     <h1 class="head">Easy hire</h1>
     <div class="test">
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             <section class="se1">
                 <h2><u>information personnel:</u></h2><br><br>
                 <div><label for="">Prénom: </label> <label for="" class="ldroite">Nom: </label><br>
@@ -38,6 +38,12 @@
                     <div> <label for="">département: </label> <label for="" class="lposte">Poste: </label></div><br>
                     <div> <input type="text" name="depar" required size="30" placeholder="département"> <input
                             type="text" required name="Poste" class="droite" placeholder="Poste"></div><br><br></br>
+                            <br><label for="">Photo:</label> 
+                            <div class="custom-file-upload">
+    <input type="file" id="fileInput" name="image" >
+    <label for="fileInput">Choisir un fichier</label>
+</div><span > (veillez choisir une photo de taille max 2MO)</span>
+<br><br><br>
                     <div> <button type="reset">annuler</button><label for=""> </label><button type="submit"
                             onclick="checkPassword()" name="submit">enregistrer</button></div>
             </section>
@@ -89,10 +95,13 @@
         $diplome = mysqli_real_escape_string($conn, $_POST['diplome']);
         $depa = mysqli_real_escape_string($conn, $_POST['depar']);
         $pos = mysqli_real_escape_string($conn, $_POST['Poste']);
+        $file = $_FILES['image']['name'];
 
-        $insert1 = "INSERT INTO candidat VALUES ($id, '$prenom', '$nom', '$daten', '$address', '$email', '$telep', '$password', '$conpass', '$an', '$diplome', '$depa', '$pos')";
+        $insert1 = "INSERT INTO candidat VALUES ($id, '$prenom', '$nom', '$daten', '$address', '$email', '$telep', '$password', '$an', '$diplome', '$depa', '$pos','$file')";
         $q = mysqli_query($conn, $insert1);
-        if ($q) {
+        if ($q) { 
+            $upload_path = "uploads/";
+            move_uploaded_file($_FILES['image']['tmp_name'], $upload_path . $file);
             header("location:valideInscript.php");
         } else {
             echo "<pre>          
