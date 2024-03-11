@@ -292,9 +292,13 @@ if (isset($_POST['pub'])) {
                                 <i class='bx bx-heart'></i>
                                 <span id="likes" class="likes">0</span>
                             </button>
+                            <?php $reqqq = $conn->query("SELECT COUNT(*) FROM commentaire WHERE idp = " . $row['id_poste']);
+                            $count = $reqqq->fetch_row()[0]; ?>
                             <button class='data'>
                                 <i class='bx bx-comment'></i>
-                                <span>1224</span>
+                                <span>
+                                    <?php echo $count ?>
+                                </span>
                             </button>
                         </div>
                         <div class='art-comment '>
