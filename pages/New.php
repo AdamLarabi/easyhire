@@ -26,7 +26,7 @@
         
         <h3 class="alae">Uploader Votre Cv</h3>
        <div class="pdf">
-        <form action="pdftotext.php" method="post" enctype="multipart/form-data">
+        <form action="../extrator/pdftotext.php" method="post" enctype="multipart/form-data">
             
             
                 
