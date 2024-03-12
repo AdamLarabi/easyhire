@@ -122,7 +122,26 @@ if (isset($_POST['pub'])) {
             <div class="content">
                 <div class="project-card">
                     <div class="project-image">
-                        <img name="image" src="<?php echo $_SESSION['image'] ?>" />
+                        <?php
+                        $id = $_SESSION['idx'];
+
+                        $req1 = "SELECT image from recruteur where IDR=$id";
+                        $q1 = mysqli_query($conn, $req1);
+                        $req2 = "SELECT image from candidat where idc=$id";
+                        $q2 = mysqli_query($conn, $req2);
+
+                        if (mysqli_num_rows($q1) > 0) {
+                            $row_i = mysqli_fetch_assoc($q1);
+                            echo "<img src='uploads/" . $row_i['image'] . "' style='width:100%;height:170px;'>";
+                        } else if (mysqli_num_rows($q2) > 0) {
+                            $row_i = mysqli_fetch_assoc($q2);
+                            echo "<image src='uploads/" . $row_i['image'] . "' style='width:100%;height:170px;'>";
+                        } else {
+                            echo "Aucune image trouvée pour cet utilisateur.";
+                        }
+
+                        ?>
+
                     </div>
                     <div class="project-info">
                         <p class="project-category" name="nom">
@@ -260,22 +279,26 @@ if (isset($_POST['pub'])) {
                         <div class='art-pub'>
                             <div class='pub-p'>
                                 <p name='post_pub_parag'>
-                                    <?php echo $row['post'] ?>
+                                    <?php echo $row['paragraphe'] ?>
                                 </p> <br>
-                                <?php echo "<img src='uploads/{$row['image']}' class='my-3' 
+                                <?php echo "<img src='uploads/{$row['document']}' class='my-3' 
                                 style='width:400px;height:400px;transform:translateX(20px); position: relative; z-index: -1;'>"; ?>
                             </div>
                         </div>
                         <div class='seperator'>
                         </div>
                         <div class='analytics'>
-                            <button class='data'>
+                            <button id="like" class='data likeBtn'>
                                 <i class='bx bx-heart'></i>
-                                <span>2,5K</span>
+                                <span id="likes" class="likes">0</span>
                             </button>
+                            <?php $reqqq = $conn->query("SELECT COUNT(*) FROM commentaire WHERE idp = " . $row['id_poste']);
+                            $count = $reqqq->fetch_row()[0]; ?>
                             <button class='data'>
                                 <i class='bx bx-comment'></i>
-                                <span>1224</span>
+                                <span>
+                                    <?php echo $count ?>
+                                </span>
                             </button>
                         </div>
                         <div class='art-comment '>
@@ -339,6 +362,7 @@ if (isset($_POST['pub'])) {
     </footer>
 
     <script src=" ../js/home.js"></script>
+    <script src=" ../js/Like.js"></script>
 </body>
 
 </html>
