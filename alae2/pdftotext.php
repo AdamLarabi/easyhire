@@ -36,12 +36,88 @@ if(isset($_POST['submit'])) {
     } else {
         $statusMsg = '<p>Please select a PDF file </p>';
     }
-}
+} // Votre tableau de texte en PHP (à définir)
+
+    $array2 = [];
+    $array3 = [];
+    $array4 = [];
+    $array5 = [];
+    $mot;
+
+    for ($i = 0; $i < count($textArray); $i++) {
+        if ($textArray[$i] == 'Competences : ') {
+            $k = $i;
+            $j = 0;
+            $i++;
+            while ($textArray[$i] != " ") {
+                $array2[$j] = $textArray[$i];
+                $i++;
+                $j++;
+            }
+            break;
+        }
+    }
+
+    for ($i = 0; $i < count($textArray); $i++) {
+        if ($textArray[$i] == 'Duree d’ Experience : ') {
+            $k = $i;
+            $j = 0;
+            $i++;
+            while ($textArray[$i] != " ") {
+                $array3[$j] = $textArray[$i];
+                $i++;
+                $j++;
+            }
+            break;
+        }
+    }
+
+    for ($i = 0; $i < count($textArray); $i++) {
+        if ($textArray[$i] == 'Certeficat : ') {
+            $k = $i;
+            $j = 0;
+            $i++;
+            while ($textArray[$i] != " ") {
+                $array4[$j] = $textArray[$i];
+                $i++;
+                $j++;
+            }
+            break;
+        }
+    }
+
+    for ($i = 0; $i < count($textArray); $i++) {
+        if ($textArray[$i] == 'Education : ') {
+            $k = $i;
+            $j = 0;
+            $i++;
+            while ($textArray[$i] != " ") {
+                for ($x = 0; $x < count($textArray); $x++) {
+                    $array5[$j] = explode(" ", $textArray[$i]);
+                }
+                $mot = $array5[0][0];
+                $i++;
+                $j++;
+                break;
+            }
+            break;
+        }
+    }
+    echo "l'experience et:<br>";
+    echo json_encode($array2) . "<br>";
+    echo "les annes d'experience et:<br>";
+    echo json_encode($array3) . "<br>";
+    echo "les certificat et:<br>";
+    echo json_encode($array4) . "<br>";
+    echo "le diplome et:<br>";
+    echo $mot . "<br>";
+    echo json_encode($textArray); // Output the PHP array to console
+
+
 ?>
 
-
 <script>
-    
+    /*
     var textArray = <?php echo json_encode($textArray); ?>;
     console.log(textArray.length);
         let array2=[];
@@ -111,4 +187,5 @@ if(isset($_POST['submit'])) {
         console.log(array4);
         console.log(mot);
     console.log(textArray); // Output the JavaScript array length to console
+    */
 </script>
