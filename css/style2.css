@@ -5,9 +5,40 @@
     box-sizing: border-box;
     font-family: 'poppins',sans-serif;
 }
+
+.custom-file-upload {
+  position: relative;
+  display: inline-block;
+  
+  margin-bottom: 30px;
+}
+
+.custom-file-upload input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload label {
+  background-color: rgb(70, 51, 180);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 40%;
+}
+
+.custom-file-upload label:hover {
+  background-color: blue;
+  color: black;
+}
+span{
+  color: red;
+
+}
+
+
 body{
 min-height: 500px;
-background-image: url("674.jpg");
+background-image: url("../img/674.jpg");
 background-size:cover;}
 @keyframes fadeIn {
     0% {
