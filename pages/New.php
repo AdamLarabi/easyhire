@@ -14,7 +14,7 @@ if(isset($_POST['submit'])) {
         $allowTypes = array('pdf');
         if(in_array($fileType, $allowTypes)) {
             
-            include 'vendor/autoload.php';
+            include '../extrator/vendor/autoload.php';
 
             
             $parser = new \Smalot\PdfParser\Parser();
@@ -103,15 +103,8 @@ if(isset($_POST['submit'])) {
             break;
         }
     }
-    echo "l'experience et:<br>";
-    echo json_encode($array2) . "<br>";
-    echo "les annes d'experience et:<br>";
-    echo json_encode($array3) . "<br>";
-    echo "les certificat et:<br>";
-    echo json_encode($array4) . "<br>";
-    echo "le diplome et:<br>";
-    echo $mot . "<br>";
-    echo json_encode($textArray); // Output the PHP array to console
+   
+    // Output the PHP array to console
 
 
 ?>
@@ -166,5 +159,7 @@ if(isset($_POST['submit'])) {
        </div>
         
     </section>
+    <script>var textArray = <?php echo json_encode($textArray); ?>;
+    console.log(textArray);</script>
 </body>
 </html>
