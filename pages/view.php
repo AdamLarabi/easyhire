@@ -5,7 +5,7 @@ include 'config.php'; ?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style5.css">
+    <link rel="stylesheet" href="../css/style7.css">
     <title>Document</title>
 </head>
 <body>
@@ -124,6 +124,6 @@ if($result->num_rows>0){
        </div>
         
     </section>
-    <script src="main.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 </html>

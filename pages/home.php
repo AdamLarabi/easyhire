@@ -22,7 +22,8 @@ if (isset($_POST['pub'])) {
     $com = $nom . ' ' . $prenom;
     $file = $_FILES['image']['name'];
     $textposte = $_POST['textposte'];
-    $insert = "INSERT INTO poste  VALUES ('$id','$com', '$textposte', '$file')";
+    $idx = $_SESSION['idx'];
+    $insert = "INSERT INTO poste  VALUES ('$id','$com', '$textposte', '$file', '$idx')";
 
     $q = mysqli_query($conn, $insert);
     if ($q) {
@@ -162,7 +163,7 @@ if (isset($_POST['pub'])) {
             <div class="publication-container">
                 <div class="publication-post">
                     <div class="publication-image">
-                        <img name="image" src="<?php $_SESSION['image'] ?>" />
+                        <img name="image" src="<?php echo "uploads/" . $row_i['image'] ?>" />
                     </div>
                     <div id="fenetre" class="fenetre">
                         <div class="fenetre-content">
@@ -249,6 +250,9 @@ if (isset($_POST['pub'])) {
     <?php
 
 
+
+
+
     $req = "SELECT * from poste";
     $q = mysqli_query($conn, $req);
     if (mysqli_num_rows($q) == 0) {
@@ -258,12 +262,41 @@ if (isset($_POST['pub'])) {
         try {
 
             while ($row = mysqli_fetch_array($q)) {
+                $nom_prenom = $row['nom_prenom'];
+
+                $parts = explode(" ", $nom_prenom);
+
+                $prenom = $parts[0];
+                $nom = $parts[1];
+                $req_image_x_poste = "
+(SELECT image
+FROM poste, candidat
+WHERE prenom='{$prenom}'
+and nom='{$nom}'
+and idX=idc)
+UNION
+(SELECT image
+FROM poste, recruteur
+WHERE prenom='{$prenom}'
+and nom='{$nom}'
+and IDR=idx)
+";
+
+                $resultat = mysqli_query($conn, $req_image_x_poste);
+
+                if (mysqli_num_rows($resultat) > 0) {
+                    $row_YES = mysqli_fetch_assoc($resultat);
+                    $image = $row_YES['image'];
+                } else {
+                    echo "Aucune image trouvée pour ce poste.";
+                }
                 ?>
                 <article>
                     <div class='article'>
                         <div class='art'>
                             <div class='art-img'>
-                                <img src=' ../img/icon.png' alt='image of ppl' name='post_image'>
+                                <?php echo "<img src='uploads/" . $image . "' style='width:50%;height:8vh; name='post_image''> ";
+                                ?>
                             </div>
                             <div class='art-txt'>
                                 <h4 name='post_nom'>
@@ -308,9 +341,9 @@ if (isset($_POST['pub'])) {
                                     $reqq = "SELECT * FROM commentaire WHERE idp = " . $row['id_poste'];
                                     $qq = mysqli_query($conn, $reqq);
                                     while ($roww = mysqli_fetch_array($qq)) {
-                                        echo '<div>'
+                                        echo '<div class="commentaire_design"><p>'
                                             . $roww['contenue'] .
-                                            '</div>';
+                                            '</p></div>';
                                     }
                                     if (isset($_POST['commenter']) && $_POST['post_id'] == $row['id_poste']) {
                                         $comment = mysqli_real_escape_string($conn, $_POST['comment']);
