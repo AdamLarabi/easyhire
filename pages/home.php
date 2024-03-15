@@ -224,7 +224,7 @@ if (isset($_POST['pub'])) {
 
                     <div class="add-exp">
                         <div class="exp-img">
-                            <img src="<?php echo $row["image"]; ?>" name="bdd_image" alt="">
+                            <img src="<?php echo "uploads/" . $row['image'] ?>" name="bdd_image" alt="">
                         </div>
                         <div class="exp-txt">
                             <h4 name="bdd_nom">
@@ -234,24 +234,42 @@ if (isset($_POST['pub'])) {
                                 <?php echo $row["poste"];
                                 ?>
                             </p>
-                            <button name="suivre"><i class='bx bx-user-plus'></i>Suivre</button>
+                            <form method="post">
+                                <button name="suivre" class="suivre"><i class='bx bx-user-plus'></i>Suivre</button>
+                            </form>
                         </div>
                     </div>
 
+
                     <?php
                 }
+                if (isset($_POST['suivre'])) {
+                    $follower = $follower = $_SESSION['prenom'] . " " . $_SESSION['nom'];
+                    $following = $row["prenom"] . " " . $row["nom"];
+
+                    $sql = "INSERT INTO follow (follower, following) VALUES (?, ?)";
+
+                    $stmt = mysqli_prepare($conn, $sql);
+
+                    mysqli_stmt_bind_param($stmt, "ss", $follower, $following);
+                    $result = mysqli_stmt_execute($stmt);
+                }
                 ?>
+                <script>
+
+                    document.querySelectorAll('.suivre').forEach(button => {
+                        button.addEventListener('click', function () {
+                            this.innerHTML = "<i class='bx bx-check'></i>Suivi"
+                            event.preventDefault();
+                        });
+                    });
+
+                </script>
             </div>
         </section>
     </main>
 
-
-
     <?php
-
-
-
-
 
     $req = "SELECT * from poste";
     $q = mysqli_query($conn, $req);
@@ -269,18 +287,18 @@ if (isset($_POST['pub'])) {
                 $prenom = $parts[0];
                 $nom = $parts[1];
                 $req_image_x_poste = "
-(SELECT image
-FROM poste, candidat
-WHERE prenom='{$prenom}'
-and nom='{$nom}'
-and idX=idc)
-UNION
-(SELECT image
-FROM poste, recruteur
-WHERE prenom='{$prenom}'
-and nom='{$nom}'
-and IDR=idx)
-";
+                (SELECT image
+                FROM poste, candidat
+                WHERE prenom='{$prenom}'
+                and nom='{$nom}'
+                and idX=idc)
+                UNION
+                (SELECT image
+                FROM poste, recruteur
+                WHERE prenom='{$prenom}'
+                and nom='{$nom}'
+                and IDR=idx)
+                ";
 
                 $resultat = mysqli_query($conn, $req_image_x_poste);
 
@@ -368,11 +386,13 @@ and IDR=idx)
                                         // $comment = '';
                                     }
                                     ?>
-                                    <input type='text' placeholder='Ajouter un commentaire' name='comment'>
-                                    <input type='hidden' name='post_id' value='<?php echo $row['id_poste']; ?>'>
-                                    <button class='data drop-box' name='commenter'>
-                                        <i class='bx bxs-send'></i>
-                                    </button>
+                                    <div class="comment-aux">
+                                        <input type='text' placeholder='Ajouter un commentaire' name='comment'>
+                                        <input type='hidden' name='post_id' value='<?php echo $row['id_poste']; ?>'>
+                                        <button class='data drop-box' name='commenter'>
+                                            <i class='bx bxs-send'></i>
+                                        </button>
+                                    </div>
                                 </form>
                             </div>
                         </div> <br>
