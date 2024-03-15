@@ -1,3 +1,114 @@
+<?php
+
+$textArray = [];
+
+
+if(isset($_POST['submit'])) {
+    
+    if(!empty($_FILES["pdf_file"]["name"])) {
+        
+        $fileName = basename($_FILES["pdf_file"]["name"]);
+        $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+
+        
+        $allowTypes = array('pdf');
+        if(in_array($fileType, $allowTypes)) {
+            
+            include '../extrator/vendor/autoload.php';
+
+            
+            $parser = new \Smalot\PdfParser\Parser();
+
+            
+            $file = $_FILES["pdf_file"]["tmp_name"];
+
+            
+            $pdf = $parser->parseFile($file);
+
+            
+            $text = $pdf->getText();
+
+            $textArray = explode("\n",$text);
+            //$textArray = str_word_count($text, 1);
+        } else {
+            $statusMsg = '<p>only PDF file </p>';
+        }
+    } else {
+        $statusMsg = '<p>Please select a PDF file </p>';
+    }
+} // Votre tableau de texte en PHP (à définir)
+
+    $array2 = [];
+    $array3 = [];
+    $array4 = [];
+    $array5 = [];
+    $mot;
+
+    for ($i = 0; $i < count($textArray); $i++) {
+        if ($textArray[$i] == 'Competences : ') {
+            $k = $i;
+            $j = 0;
+            $i++;
+            while ($textArray[$i] != " ") {
+                $array2[$j] = $textArray[$i];
+                $i++;
+                $j++;
+            }
+            break;
+        }
+    }
+
+    for ($i = 0; $i < count($textArray); $i++) {
+        if ($textArray[$i] == 'Duree d’ Experience : ') {
+            $k = $i;
+            $j = 0;
+            $i++;
+            while ($textArray[$i] != " ") {
+                $array3[$j] = $textArray[$i];
+                $i++;
+                $j++;
+            }
+            break;
+        }
+    }
+
+    for ($i = 0; $i < count($textArray); $i++) {
+        if ($textArray[$i] == 'Certeficat : ') {
+            $k = $i;
+            $j = 0;
+            $i++;
+            while ($textArray[$i] != " ") {
+                $array4[$j] = $textArray[$i];
+                $i++;
+                $j++;
+            }
+            break;
+        }
+    }
+
+    for ($i = 0; $i < count($textArray); $i++) {
+        if ($textArray[$i] == 'Education : ') {
+            $k = $i;
+            $j = 0;
+            $i++;
+            while ($textArray[$i] != " ") {
+                for ($x = 0; $x < count($textArray); $x++) {
+                    $array5[$j] = explode(" ", $textArray[$i]);
+                }
+                $mot = $array5[0][0];
+                $i++;
+                $j++;
+                break;
+            }
+            break;
+        }
+    }
+   
+    // Output the PHP array to console
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +137,7 @@
         
         <h3 class="alae">Uploader Votre Cv</h3>
        <div class="pdf">
-        <form action="../extrator/pdftotext.php" method="post" enctype="multipart/form-data">
+        <form action="New.php" method="post" enctype="multipart/form-data">
             
             
                 
@@ -48,5 +159,7 @@
        </div>
         
     </section>
+    <script>var textArray = <?php echo json_encode($textArray); ?>;
+    console.log(textArray);</script>
 </body>
 </html>
