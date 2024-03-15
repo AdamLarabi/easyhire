@@ -1,3 +1,4 @@
+
 body {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
   margin: 0;
@@ -112,7 +113,7 @@ header {
 }
 
 .profile {
-  background-image: url("../img/backgroundd.png"); /* Chemin de votre image de fond */
+  background-image: url("../img/back.jpg"); /* Chemin de votre image de fond */
   background-size: cover; /* L'image de fond couvrira toute la partie de la div */
   background-position: center; /* Centre l'image de fond */
 }
@@ -120,12 +121,11 @@ header {
 .personal-info,
 .other-info,
 .buttons {
-  width: 45%;
+  width: 51%;
   margin-left: 10px;
 }
 
-.personal-info input,
-.other-info textarea {
+.personal-info input {
   width: calc(100% - 20px);
   padding: 10px;
   border: none;
@@ -135,16 +135,38 @@ header {
   font-size: 20px;
 }
 
-.personal-info input:focus,
-.other-info input:focus,
-textarea:focus {
+.personal-info input:focus {
   border-bottom-color: rgb(124, 207, 196);
   outline: none;
 }
 
-.other-info textarea {
-  resize: none;
+
+
+/*bouton formation experience, competences******************/
+
+.info-btn {
+  padding: 15px 15px; /* Ajuste le rembourrage */
+  margin: -7px 0; /* Espacement vertical sans espace horizontal */
+  background-color:  rgb(124, 207, 196); /* Couleur de fond verte */
+  color: white; /* Texte blanc */
+  border: none; /* Pas de bordure */
+  border-radius:11px; /* Coins arrondis */
+  cursor: pointer; /* Indique que le bouton est cliquable */
+  transition: background-color 0.3s ease; /* Animation de fond lors du survol */
 }
+
+.info-btn:hover {
+  background-color: #f5630e; /* Assombrir le fond lors du survol */
+}
+
+/* Pour souligner légèrement le bouton actif ou cliqué (facultatif) */
+.info-btn:active {
+  transform: translateY(2px); /* Déplace légèrement le bouton vers le bas */
+}
+
+/*****************************************/
+
+
 
 .buttons button {
   padding: 10px 20px;
@@ -180,7 +202,7 @@ textarea:focus {
 }
 
 .right {
-  width: 45%;
+  width: 40%;
   margin-left: 10px;
   display: flex;
   flex-direction: column;
@@ -188,12 +210,75 @@ textarea:focus {
 }
 
 .left {
-  width: 55%;
+  width: 60%;
   margin-right: 10px;
   float: left;
   display: flex;
   flex-direction: column;
 }
+
+
+
+/********************************************************/
+/*pour le conteneurs des information formation expe et competences*/
+.center-info {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin: 5px auto; /* Centrer le conteneur avec une marge automatique */
+padding: 20px;
+background-color: azure;
+box-shadow: 0 2px 4px rgba(240, 73, 6, 0.1);
+border-radius: 8px;
+width: 85%;
+max-width: 600px;
+overflow: hidden;
+}
+
+.center-info form {
+display: flex;
+flex-direction: column;
+width: 100%;
+}
+
+.center-info input,
+.center-info textarea {
+width: 90%; /* Réduire la largeur pour ne pas étendre le conteneur */
+padding: 10px;
+margin: 10px auto; /* Augmenter l'espace et centrer les champs */
+border: 1px solid #ccc;
+border-radius: 4px;
+box-sizing: border-box;
+}
+
+.center-info button {
+padding: 8px 16px; /* Ajuster le padding pour que les boutons soient plus larges */
+margin: 10px auto; /* Centrer les boutons sous les champs */
+background-color: #007bff;
+color: white;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+transition: background-color 0.3s;
+}
+
+.center-info button:hover {
+background-color: #0056b3;
+}
+
+/* Style spécifique pour le bouton 'Retirer' */
+.center-info button:nth-of-type(2) {
+background-color: #dc3545;
+}
+
+.center-info button:nth-of-type(2):hover {
+background-color: #bd2130;
+}
+
+/******************************************************************/
+
+
 
 .job-offers {
   max-height: 250px;
