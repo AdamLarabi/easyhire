@@ -35,7 +35,9 @@
           <img src="../img/Photo.jpg" alt="Photo de profil" />
           <p classe="nom">Nom et Prenom</p>
           <p class="nom">Etudiant à la FST Settat, actuelement en licence</p>
-          <button class="btn change-photo">Editer</button>
+          <form action="./New.php">
+          <button class="btn change-photo">Extract CV</button>
+          </form>
           <ul class="comptes">
                <a href=""><img src="../img/icon-insta.png" alt="instag" /></a>
                <a href=""><img src="../img/icon-linkedin.png" alt="LInkedin"/></a>

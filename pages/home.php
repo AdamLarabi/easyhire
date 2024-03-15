@@ -58,7 +58,7 @@ if (isset($_POST['pub'])) {
             <li>
                 <div>
 
-                    <a href="#ac" class="x">
+                    <a href="./home.php" class="x">
                         <i class='bx bxs-home'></i>
                         Acceuil
                     </a>
@@ -95,7 +95,7 @@ if (isset($_POST['pub'])) {
                         <a href="profile.php">Profil</a>
                         <a href="#">Aide et assistance</a>
                         <a href="#">Donner votre avis</a>
-                        <a href="#apres">Se déconnecter</a>
+                        <a href="./login.php">Se déconnecter</a>
                     </div>
                     <script>
                         var parametre = document.getElementById("parametre");
