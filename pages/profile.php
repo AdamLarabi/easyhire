@@ -8,7 +8,7 @@
       href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/css/multi-select-tag.css"
     />
     <title>Profile Candidat</title>
-    <link rel="stylesheet" href="../css/styleprofile.css" />
+    <link rel="stylesheet" href=" ../css/styleprofile.css" />
     <!-- Fichier CSS externe -->
   </head>
   <body>
@@ -62,13 +62,13 @@
           </div>
           <div class="other-info">
             <h2><span class="underline">Informations niveau 2 :</span></h2>
-            <textarea id="formation" placeholder="Formation"></textarea
-            ><br /><br />
-            <textarea id="experiences" placeholder="Expériences"></textarea
-            ><br /><br />
-            <textarea id="competences" placeholder="Compétences"></textarea
-            ><br /><br />
-            <label>langues:</label> <br /><br />
+            <button id="btnCompetences" class="btn info-btn">Compétences</button><br /><br />
+            <button id="btnFormation" class="btn info-btn">Formation</button><br /><br />
+            <button id="btnExperiences" class="btn info-btn">Expériences </button><br /><br />
+            
+            
+            
+             <label>langues:</label> <br /><br />
             <select id="langues" multiple>
               <option value="francais">Français</option>
               <option value="arabe">Arabe</option>
@@ -85,6 +85,13 @@
             <button class="btn edit-btn">Editer</button>
             <button class="btn save-btn">Enregistrer</button>
           </div>
+        </div>
+
+        <div class="center-info">
+          <h1>pour affichages des information N2 :</h1>
+          <p>clique sur bouton pour visualiser!</p>
+          
+         <!-- Cette section sera mise à jour dynamiquement avec JavaScript -->
         </div>
 
         <div class="right">
@@ -172,5 +179,7 @@
     <script>
       new MultiSelectTag("langues"); // id
     </script>
+
+  <script src=" ../js/Profile.js"></script>
   </body>
 </html>
