@@ -104,6 +104,7 @@
           $_SESSION['image'] = $ligne2['image'];
           $_SESSION['poste'] = $ligne2['poste'];
           $_SESSION['idx'] = $ligne2['IDR'];
+          $_SESSION['image'] = $ligne2['image'];
           header("location:home.php");
           exit();
         } else {//candidat
@@ -112,6 +113,7 @@
           $_SESSION['image'] = $ligne1['image'];
           $_SESSION['poste'] = $ligne1['poste'];
           $_SESSION['idx'] = $ligne1['idc'];
+          $_SESSION['image'] = $ligne1['image'];
           header("location:home.php");
           exit();
 

@@ -258,11 +258,8 @@ if (isset ($_POST['pub'])) {
 
                                 </button>
                             </form>
-
                         </div>
                     </div>
-
-
                     <?php
                 }
 
