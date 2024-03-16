@@ -17,17 +17,23 @@
         <h1>login</h1>
         <div class="box">
           <ion-icon name="mail-outline"></ion-icon>
-          <input type="email" required name="email">
+          <input type="email" required name="email" value="<?php if (isset ($_COOKIE['login'])) {
+            echo "{$_COOKIE['login']}";
+          } ?>">
           <label for="">Email</label>
         </div>
         <div class="box">
           <ion-icon name="lock"></ion-icon>
-          <input type="password" required name="password">
+          <input type="password" required name="password" value="<?php if (isset ($_COOKIE['password'])) {
+            echo "{$_COOKIE['password']}";
+          } ?>">
           <label for="">password</label>
         </div>
         <div class="forgot">
-          <input type="checkbox" name="" id="">
-          <label for="">remember me</label>
+          <input type="checkbox" id="remember" name="remember" <?php if (isset ($_COOKIE['check'])) {
+            echo 'checked';
+          } ?>>
+          <label for="remember">remember me</label>
         </div>
         <button name="valide">log in</button>
 
@@ -47,11 +53,11 @@
   $conn = mysqli_connect($host, $user, $pass, $db);
 
   if (!$conn) {
-    die("Échec de la connexion : " . mysqli_connect_error());
+    die ("Échec de la connexion : " . mysqli_connect_error());
   }
   session_start();
 
-  if (isset($_POST['valide'])) {
+  if (isset ($_POST['valide'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
@@ -83,6 +89,15 @@
       //back to test
       $id = $row['id_log'];
       if ($password == $row['password'] && $email == $row['email']) {
+        if (isset ($_POST['remember']) && $_POST['remember'] === 'on') {
+          setcookie('login', $email, time() + (30 * 24 * 3600), "/");
+          setcookie('password', $password, time() + (30 * 24 * 3600), "/");
+          setcookie('check', "on", time() + (30 * 24 * 3600), "/");
+        } else {
+          setcookie('login', "", time() - 1, "/");
+          setcookie('password', "", time() - 1, "/");
+          setcookie('check', "", time() - 1, "/");
+        }
         if ($id >= 100000) {//recruteur
           $_SESSION['prenom'] = $ligne2['prenom'];
           $_SESSION['nom'] = $ligne2['nom'];

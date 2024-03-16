@@ -16,7 +16,7 @@ html {
 }
 
 body {
-  background-image: url(674.jpg);
+  background-image: url(../img/674.jpg);
   background-size: cover;
   background-position: center;
   background-color: #f3f2ef;
@@ -34,8 +34,8 @@ header {
   z-index: 1000;
   background-color: #b1b7ea;
 }
-.header_box_shadow{
-    box-shadow: 2px 2px 8px 3px rgba(2, 4, 28, 0.164);
+.header_box_shadow {
+  box-shadow: 2px 2px 8px 3px rgba(2, 4, 28, 0.164);
 }
 .nav_bar {
   display: flex;
@@ -58,15 +58,15 @@ header {
   width: auto;
 }
 .search_bar {
-   width: 20rem;
-    height: 2.3rem;
-    display: flex;
-    align-items: center;
-    border-radius: .3rem;
-    padding-right: 1rem;
-    padding-left: 1rem;
-    background: #b1b7ea;
-    margin-right: 1rem;
+  width: 20rem;
+  height: 2.3rem;
+  display: flex;
+  align-items: center;
+  border-radius: 0.3rem;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  background: #b1b7ea;
+  margin-right: 1rem;
 }
 .search_bar_input {
   width: 14rem;
@@ -77,16 +77,13 @@ header {
   background-color: #eef3f8;
   outline: none;
   border: none;
-  transition: all  .7s ease;
+  transition: all 0.7s ease;
 }
 
-
-.input_on_focus{
+.input_on_focus {
   width: 20rem;
-  transition: width .5s ease;
+  transition: width 0.5s ease;
 }
-
-
 
 .fa-magnifying-glass {
   font-size: 1rem;
@@ -125,7 +122,7 @@ header {
   color: #000000af;
 }
 
-.after_element{
+.after_element {
   position: relative;
 }
 .after_element::after {
@@ -137,7 +134,7 @@ header {
   left: 50%;
   transform: translateX(-50%);
   bottom: -5px;
-  transition: all .5s ease;
+  transition: all 0.5s ease;
 }
 .grid_product a {
   display: flex;
@@ -193,9 +190,9 @@ header {
   position: absolute;
   top: 4rem;
   right: 0;
-  border-radius: 7px  0  7px 7px;
+  border-radius: 7px 0 7px 7px;
   display: none;
-  transition:all .5s ease;
+  transition: all 0.5s ease;
   /* position: fixed; */
   box-shadow: 2px 0px 9px 0px rgba(0, 0, 0, 0.425);
   z-index: 2000;
@@ -276,7 +273,6 @@ header {
 .post_icons span {
   padding-left: 0.5rem;
 }
-
 
 .profil_name_job {
   display: flex;
@@ -440,7 +436,7 @@ a {
   font-weight: bold;
   text-decoration: none;
 }
-.left_job_div a:hover{
+.left_job_div a:hover {
   color: rgb(26, 24, 24);
 }
 .left_job_div i {
@@ -466,7 +462,6 @@ a {
   margin-top: 1rem;
   padding-left: 1rem;
   transition: 0.3s ease;
-  
 }
 .left_job_container .add_job:hover {
   border: 2px solid #041a30dc;
@@ -563,7 +558,6 @@ a {
   background-color: #327fcc28;
 }
 
-
 .job_oportunity {
   display: flex;
   flex-direction: column;
@@ -606,13 +600,11 @@ a {
 .job_description h6 a {
   color: #327fcc;
   text-decoration: none;
-  
 }
 .job_description h6 a:hover {
   text-decoration: underline;
 }
 .job_description p a {
- 
   color: rgba(0, 0, 0, 0.562);
 }
 .photo_pro_text {
@@ -650,15 +642,14 @@ a {
   color: rgba(0, 0, 0, 0.644);
 }
 
-
 .right_job_container {
   position: sticky;
   top: 80px;
   width: 27.33%;
   height: 300px;
   border-radius: 7px;
-  
-    background-color: #d5cece;
+
+  background-color: #d5cece;
 }
 .right_job_container a,
 .right_job_container span {
@@ -666,17 +657,9 @@ a {
   color: #72716f;
 }
 
-
-
-
-
-
-
-body{
-  overflow-y:visible;
+body {
+  overflow-y: visible;
 }
-
-
 
 @media screen and (max-width: 1250px) {
   .job_page {
@@ -710,14 +693,12 @@ body{
 @media screen and (max-width: 800px) {
   .job_icons_links_nav {
     margin: 0;
-   
   }
   .job_icons_bar_profile {
     justify-content: flex-start;
   }
   #second_icons_links_nav {
     padding-top: 0;
-    
   }
   .home_icon::before {
     top: -3px;
@@ -747,19 +728,11 @@ body{
   }
 }
 
-
-
-
-
-
-
-
-#profil_button{
-    position: relative;
-    display: flex;
+#profil_button {
+  position: relative;
+  display: flex;
 }
 
-
-#menu_profil{
+#menu_profil {
   z-index: 100006;
 }

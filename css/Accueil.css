@@ -1,222 +1,217 @@
-*{
-    padding:0;
-    margin:0;
-    box-sizing: border-box;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
-html{
-    scroll-behavior:smooth
+html {
+  scroll-behavior: smooth;
 }
-header{
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color:  rgba(53, 135, 212, 0.281);
-    height:80px;
-    width: 100%;
-    backdrop-filter: blur(5px);
+header {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(53, 135, 212, 0.281);
+  height: 80px;
+  width: 100%;
+  backdrop-filter: blur(5px);
 }
 header ul {
-    list-style-type: none;
-    display: flex;
-    float: right;
-    gap:2rem;
-    width: 50%;
+  list-style-type: none;
+  display: flex;
+  float: right;
+  gap: 2rem;
+  width: 50%;
 }
-header ul li a{
-    text-decoration:none;
-    color:black;
-    font-size:large;
-    cursor: pointer;
+header ul li a {
+  text-decoration: none;
+  color: black;
+  font-size: large;
+  cursor: pointer;
 }
-header ul li a:hover{
-    color:white;
+header ul li a:hover {
+  color: white;
 }
 header h1 {
-    padding-left: 30px;
-    float: left;
-    width: 60%;
+  padding-left: 30px;
+  float: left;
+  width: 60%;
 }
-.page1{
-    height: 600px;
-    background-image: url(img/page2.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    text-align:center;
-    padding-top: 200px;
+.page1 {
+  height: 600px;
+  background-image: url(img/page2.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  text-align: center;
+  padding-top: 200px;
 }
 .page1 h1 {
-    margin: 40px;
-    font-size:50px;
+  margin: 40px;
+  font-size: 50px;
 }
- span{
-    color: rgb(53, 136, 212);
+span {
+  color: rgb(53, 136, 212);
 }
 .page1 h3 {
-    font-size: x-large;
+  font-size: x-large;
 }
-.container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .page1 button {
-    margin: 50px;;
-    height: 50px;
-    width: 160px;
-    background-color: rgb(255, 255, 255);
-    border: none;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;;
-    opacity: 0.7;
-} 
-.page1 button:hover{
-    background-color: rgb(53, 136, 212);;
-    opacity: 0.9;
+  margin: 50px;
+  height: 50px;
+  width: 160px;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  opacity: 0.71;
 }
-.page2{
-    margin: 100px;
-    text-align: center;
-    gap: 2rem;
+.page1 button:hover {
+  background-color: rgb(53, 136, 212);
+  opacity: 0.9;
 }
-.page2 h1{
-    margin: 40px;
-   
+.page2 {
+  margin: 100px;
+  text-align: center;
+  gap: 2rem;
 }
-.page2 h3{
-    margin: 40px;
+.page2 h1 {
+  margin: 40px;
 }
-.page2 h4{
-    margin: 20px;
+.page2 h3 {
+  margin: 40px;
 }
-.page2 .container1{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;;
+.page2 h4 {
+  margin: 20px;
+}
+.page2 .container1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 .container1 div {
-    margin: 5px;
+  margin: 5px;
 }
-.page3{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 2rem;
-    
+.page3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
-.page3 h1{
-    padding: 10px;
-    border-left: 5px solid rgb(27, 129, 189);
-    width: 80%;
+.page3 h1 {
+  padding: 10px;
+  border-left: 5px solid rgb(27, 129, 189);
+  width: 80%;
 }
 .page3 div {
-    border-left: 5px solid rgb(27, 129, 189);
-    box-shadow:10px 0 10px 0 rgb(115, 162, 177);
-    width: 200px;
-    text-align: center;
-    height: 120px;
-} 
+  border-left: 5px solid rgb(27, 129, 189);
+  box-shadow: 10px 0 10px 0 rgb(115, 162, 177);
+  width: 200px;
+  text-align: center;
+  height: 120px;
+}
 .page3 div:hover {
-    width: 205px;
-    opacity: 0.8s;
+  width: 205px;
+  opacity: 0.8s;
 }
 
 footer {
-    background-color: rgb(68, 154, 235);
+  background-color: rgb(68, 154, 235);
 }
 footer section {
-    margin-top: 10px;
-    text-align: center;
+  margin-top: 10px;
+  text-align: center;
 }
-footer h3 ,p{
-
-    text-align: center;
+footer h3,
+p {
+  text-align: center;
 }
-footer p{
-    color:rgb(202, 198, 198);
+footer p {
+  color: rgb(202, 198, 198);
 }
 footer section img {
-    border-radius: 90px;
-    
+  border-radius: 90px;
 }
-footer section img:hover{
-    opacity: 0.5;
+footer section img:hover {
+  opacity: 0.5;
 }
 .div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .div div {
-    margin: 5px;
-    border-bottom: 2px solid rgb(150, 202, 233);
-    width: 40%;
-    
+  margin: 5px;
+  border-bottom: 2px solid rgb(150, 202, 233);
+  width: 40%;
 }
 /*page Apropos du nous*/
-.Apropos{
-    text-align: center;
-    padding: 150px;
-    height: 530px;
+.Apropos {
+  text-align: center;
+  padding: 150px;
+  height: 530px;
 }
-.guide{
-    text-align: center;
-    padding: 150px;
-    height: 530px;
-    font-size: x-large;
+.guide {
+  text-align: center;
+  padding: 150px;
+  height: 530px;
+  font-size: x-large;
 }
-.contactez{
-    padding: 150px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.contactez {
+  padding: 150px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.contactez .cont h1{
-    margin: 20px;
+.contactez .cont h1 {
+  margin: 20px;
 }
-.contactez .cont h4{
-    margin: 20px;
+.contactez .cont h4 {
+  margin: 20px;
 }
-.contactez .cont ul{
-    margin: 20px;
+.contactez .cont ul {
+  margin: 20px;
 }
-.contactez .cont ul li{
-    margin: 20px;
+.contactez .cont ul li {
+  margin: 20px;
 }
-.contactez .form{
-    text-align: center;
+.contactez .form {
+  text-align: center;
 }
-.contactez .form input{
-    border:1px solid rgb(67, 154, 212);
-    height:30px;
-    border-radius: 10px;
-    text-align: center;
-    font:inherit;
-    background-color: white;
+.contactez .form input {
+  border: 1px solid rgb(67, 154, 212);
+  height: 30px;
+  border-radius: 10px;
+  text-align: center;
+  font: inherit;
+  background-color: white;
 }
-#lo{
-    width:220px;
-    background-color: white;
+#lo {
+  width: 220px;
+  background-color: white;
 }
-#lo:hover{
-    background-color: rgb(53, 136, 212);;
+#lo:hover {
+  background-color: rgb(53, 136, 212);
 }
-textarea{
-    width:220px;
-    background-color: white;
-    border: 1px solid  rgb(67, 154, 212);
-    border-radius: 10px;
-    height: 50px;
-    text-align: center;
-    font:inherit;
+textarea {
+  width: 220px;
+  background-color: white;
+  border: 1px solid rgb(67, 154, 212);
+  border-radius: 10px;
+  height: 50px;
+  text-align: center;
+  font: inherit;
 }
