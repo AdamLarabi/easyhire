@@ -79,6 +79,9 @@ if(isset($_POST['submit'])) {
             }
             break;
         }
+        else{
+            $array2[0] =" ";
+        }
     }
      //donee array2 a un string 
      $copm = implode(", ", $array2);
@@ -96,6 +99,9 @@ if(isset($_POST['submit'])) {
             $exp=$array3[0];
             break;
         }
+        else{
+            $exp =" ";
+        }
     }
 
     for ($i = 0; $i < count($textArray); $i++) {
@@ -109,6 +115,9 @@ if(isset($_POST['submit'])) {
                 $j++;
             }
             break;
+        }
+        else{
+            $array4[0] =" ";
         }
     }
 
@@ -131,6 +140,9 @@ if(isset($_POST['submit'])) {
                 break;
             }
             break;
+        }
+        else{
+            $mot =" ";
         }
     }
    
@@ -198,7 +210,7 @@ if(isset($_POST['submit'])){
     $idc1 = $_SESSION['idx'];
     $cv1=new cv($competence1,$experience1,$certificat1, $diplome1,$idc1);
     
-    if(!$cv1->estValide()){
+ if(!$cv1->estValide()){
         echo "<h1>Verifier les champs</h1>";
     }else {
        $sql="INSERT INTO lire_cv(competence,ann_exp,certificat,diplom,idc) VALUES (:competence,:experience,:certificat,:diplome,:idc)";
@@ -232,22 +244,22 @@ if(isset($_POST['submit'])){
         <div class="upl">
         <div class="cl1">
         <label for="competances">Competance</label>
-        <textarea  cols="30" rows="5"class="form-control" type="textarea" required name="competances"  ><?php echo $copm;?></textarea>
+        <textarea  cols="30" rows="5"class="form-control" type="textarea"  name="competances"  ><?php echo $copm;?></textarea>
         </div >
         <br><br>
         <div class="cl2">
         <label for="experience">Experience</label>
-        <input class="form-control" type="textarea" required name="experience" value="<?php echo $exp;?>">
+        <input class="form-control" type="textarea"  name="experience" value="<?php echo $exp;?>">
         </div>
        <br><br>
        <div class="cl3">
        <label for="certificat">Certificat</label>
-        <textarea  cols="30" rows="5"class="form-control" type="textarea" required name="certificat" ><?php echo $certif;?></textarea>
+        <textarea  cols="30" rows="5"class="form-control" type="textarea"  name="certificat" ><?php echo $certif;?></textarea>
        </div>
         <br><br>
         <div class="cl4">
         <label for="diplome">Diplome</label>
-        <input class="form-control" type="textarea" required name="diplome" value="<?php echo $mot ; ?>">
+        <input class="form-control" type="textarea"  name="diplome" value="<?php echo $mot ; ?>">
         </div>
         <br><br>
         <button type="submit" class="btn btn-primary btn2" name="submit">Confirmer</button>
