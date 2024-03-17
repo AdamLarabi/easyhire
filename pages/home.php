@@ -3,16 +3,16 @@
 
 session_start();
 
-$sql = ' SELECT * FROM candidat';
+$sql = " SELECT * FROM candidat where idc!='{$_SESSION['idx']}'";
 $all = mysqli_query($conn, $sql);
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['commenter'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($_POST['commenter'])) {
     header("Location: {$_SERVER['REQUEST_URI']}");
 }
 
 
 //pour stockée les postes dans bd
-if (isset($_POST['pub'])) {
+if (isset ($_POST['pub'])) {
     $query_max_id = "SELECT MAX(id_poste) AS max_id FROM poste";
     $result_max_id = mysqli_query($conn, $query_max_id);
     $row_max_id = mysqli_fetch_assoc($result_max_id);
@@ -220,6 +220,18 @@ if (isset($_POST['pub'])) {
                 <h2>Ajouter a votre fil d'actualites :</h2>
                 <?php
                 while ($row = mysqli_fetch_assoc($all)) {
+                    $suivi = false; // Par défaut, le candidat n'est pas suivi
+                    // Exécutez une requête pour vérifier si le candidat est suivi ou non
+                    $sql_suivi = "SELECT * FROM follow WHERE follower = ? AND following = ?";
+                    $stmt_suivi = mysqli_prepare($conn, $sql_suivi);
+                    $fullnameee = $_SESSION['prenom'] . " " . $_SESSION['nom'];
+                    $fullnameee2 = $row["prenom"] . " " . $row["nom"];
+                    mysqli_stmt_bind_param($stmt_suivi, "ss", $fullnameee, $fullnameee2);
+                    mysqli_stmt_execute($stmt_suivi);
+                    $result_suivi = mysqli_stmt_get_result($stmt_suivi);
+                    if (mysqli_num_rows($result_suivi) > 0) {
+                        $suivi = true; // Le candidat est suivi
+                    }
                     ?>
 
                     <div class="add-exp">
@@ -234,35 +246,70 @@ if (isset($_POST['pub'])) {
                                 <?php echo $row["poste"];
                                 ?>
                             </p>
-                            <form method="post">
-                                <button name="suivre" class="suivre"><i class='bx bx-user-plus'></i>Suivre</button>
+                            <form method="get">
+                                <button class="suivre" data-idc="<?php echo $row["idc"]; ?>">
+                                    <?php if ($suivi) {
+                                        echo "<i class='bx bx-user-check'></i>suivi";
+                                    } else {
+                                        echo "<i class='bx bx-user-plus'>suivre";
+                                    }
+                                    ?>
+                                    </i>
+
+                                </button>
                             </form>
                         </div>
                     </div>
-
-
                     <?php
                 }
-                if (isset($_POST['suivre'])) {
-                    $follower = $follower = $_SESSION['prenom'] . " " . $_SESSION['nom'];
-                    $following = $row["prenom"] . " " . $row["nom"];
 
-                    $sql = "INSERT INTO follow (follower, following) VALUES (?, ?)";
+                if (isset ($_GET['idc'])) {
+                    $requetee = "SELECT prenom ,nom from candidat where idc={$_GET['idc']}";
+                    $q0 = mysqli_query($conn, $requetee);
+                    $row0 = mysqli_fetch_assoc($q0);
+                    $follower = $_SESSION['prenom'] . " " . $_SESSION['nom'];
+                    $following = $row0['prenom'] . " " . $row0['nom'];
 
-                    $stmt = mysqli_prepare($conn, $sql);
+                    if (isset ($_GET['suivre']) && $_GET['suivre'] === 'true') {
+                        // Si 'suivre' est défini et égal à 'true', insérer l'entrée dans la table 'follow'
+                        $sql = "INSERT INTO follow (follower, following) VALUES (?, ?)";
+                        $stmt = mysqli_prepare($conn, $sql);
+                        mysqli_stmt_bind_param($stmt, "ss", $follower, $following);
+                        $result = mysqli_stmt_execute($stmt);
+                    } else {
+                        // Sinon, si 'suivre' n'est pas défini ou n'est pas égal à 'true', supprimer l'entrée correspondante de la table 'follow'
+                        $sql = "DELETE FROM follow WHERE follower = ? AND following = ?";
+                        $stmt = mysqli_prepare($conn, $sql);
+                        mysqli_stmt_bind_param($stmt, "ss", $follower, $following);
+                        $result = mysqli_stmt_execute($stmt);
+                    }
 
-                    mysqli_stmt_bind_param($stmt, "ss", $follower, $following);
-                    $result = mysqli_stmt_execute($stmt);
                 }
                 ?>
+
                 <script>
 
                     document.querySelectorAll('.suivre').forEach(button => {
-                        button.addEventListener('click', function () {
-                            this.innerHTML = "<i class='bx bx-check'></i>Suivi"
+                        button.addEventListener('click', function (event) {
                             event.preventDefault();
+                            var idc = button.getAttribute('data-idc');
+
+                            var suivre = button.innerHTML.includes("suivre");
+
+                            // Envoyer une requête AJAX pour suivre ou arrêter de suivre l'utilisateur en fonction de l'état actuel
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('GET', 'home.php?idc=' + idc + '&suivre=' + (suivre ? 'true' : 'false'), true);
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState == 4 && xhr.status == 200) {
+                                    //console.log(xhr.responseText); // Afficher la réponse du serveur
+                                    // Mettre à jour le libellé du bouton en fonction de la réponse
+                                    button.innerHTML = suivre ? "<i class='bx bx-user-check'></i>suivi" : "<i class='bx bx-user-plus'>suivre";
+                                }
+                            };
+                            xhr.send();
                         });
                     });
+
 
                 </script>
             </div>
@@ -363,7 +410,7 @@ if (isset($_POST['pub'])) {
                                             . $roww['contenue'] .
                                             '</p></div>';
                                     }
-                                    if (isset($_POST['commenter']) && $_POST['post_id'] == $row['id_poste']) {
+                                    if (isset ($_POST['commenter']) && $_POST['post_id'] == $row['id_poste']) {
                                         $comment = mysqli_real_escape_string($conn, $_POST['comment']);
                                         $idx = $_SESSION['idx'];
                                         $idp = $row['id_poste'];

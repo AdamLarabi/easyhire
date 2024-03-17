@@ -79,6 +79,9 @@ if(isset($_POST['submit'])) {
             }
             break;
         }
+        else{
+            $array2[0] =" ";
+        }
     }
      //donee array2 a un string 
      $copm = implode(", ", $array2);
@@ -96,6 +99,9 @@ if(isset($_POST['submit'])) {
             $exp=$array3[0];
             break;
         }
+        else{
+            $exp =" ";
+        }
     }
 
     for ($i = 0; $i < count($textArray); $i++) {
@@ -109,6 +115,9 @@ if(isset($_POST['submit'])) {
                 $j++;
             }
             break;
+        }
+        else{
+            $array4[0] =" ";
         }
     }
 
@@ -131,6 +140,9 @@ if(isset($_POST['submit'])) {
                 break;
             }
             break;
+        }
+        else{
+            $mot =" ";
         }
     }
    
@@ -198,7 +210,7 @@ if(isset($_POST['submit'])){
     $idc1 = $_SESSION['idx'];
     $cv1=new cv($competence1,$experience1,$certificat1, $diplome1,$idc1);
     
-    if(!$cv1->estValide()){
+ if(!$cv1->estValide()){
         echo "<h1>Verifier les champs</h1>";
     }else {
        $sql="INSERT INTO lire_cv(competence,ann_exp,certificat,diplom,idc) VALUES (:competence,:experience,:certificat,:diplome,:idc)";
