@@ -33,27 +33,28 @@ include 'config.php'; ?>
                 </p>
             </div>
             <div class="inputs">
-                <input type="text" id="title" placeholder="title">
+                <input type="text" id="compte" placeholder="competance">
+                <input type="text" id="dipl" placeholder="diplome">
+                <input type="text" id="certi" placeholder="certificat">
+                
                 <div class="price">
-                    <input onkeyup="gettotal()" type="number"  id="price" placeholder="certificate">
-                    <input onkeyup="gettotal()" type="number" id="taxes" placeholder="Experiance">
-                    <input onkeyup="gettotal()" type="number" id="ads" placeholder="Competance">
-                    <input onkeyup="gettotal()" type="number" id="discount" placeholder="diplome">
+                    <input onkeyup="score()" type="number"  id="price" placeholder="competance-score">
+                    <input onkeyup="score()" type="number" id="taxes" placeholder="certificat-score">
+                    <input onkeyup="score()" type="number" id="ads" placeholder="anne-score">
+                    <input onkeyup="score()" type="number" id="discount" placeholder="diplome-score">
                     <small id="total"></small>
                     
                 </div>
                 
-                <input type="number" id="count" placeholder="count">
-            <input type="text" id="category" placeholder="category">
-            <button id="submit">create</button>
+                
                 
             </div>
             <div class="outputs">
                 <div class="searchblock">
-                    <input onkeyup="searchdata(this.value)" type="text" id="search" placeholder="search">
+                    
                     <div class="btnsearch">
-                        <button onclick="getsearchmood(this.id)" id="searchtitle"> search by title</button>
-                        <button onclick="getsearchmood(this.id)" id="searchcategorie"> search by categorie</button>
+                        <button onclick="search()" id="searchtitle">search</button>
+                        
                     </div>
                 </div>
                 <div id="deleteall">
@@ -63,49 +64,247 @@ include 'config.php'; ?>
                 <table>
                     <tr>
                         <th>id</th>
-                        <th>title</th>
-                        <th>price</th>
-                        <th>taxes</th>
-                        <th>ads</th>
-                        <th>discount</th>
-                        <th>total</th>
-                        <th>category</th>
-                        <th>update</th>
+                        <th>idx</th>
+                        <th>diplome</th>
+                        <th>certificat</th>
+                        <th>Experiance</th>
+                        <th>Competance</th>
+                        <th>Score</th>
+                        <th>contact</th>
                         <th>delete</th>
                     </tr>
                    
                     <tbody id="tbdy">
                     
                     <?php 
- $sql = "SELECT * FROM 'users' WHERE 'id'=10";
-$result = $conn->query($sql);
-if($result->num_rows>0){
-    while($row = $result->fetch_assoc()){
+ $sql = "SELECT * FROM lire_cv";
+ $result = $conn->query($sql);
+ 
+ $cvData = array();
+ if ($result->num_rows > 0) {
+     while ($row = $result->fetch_assoc()) {
+         $id = $row['id_li'];
+         $firstname = $row['idc']; 
+         $lastname = $row['diplom'];
+         $email = $row['certificat'];
+         $gender = $row['ann_exp'];
+         $password = $row['competence'];
+         $cvData[] = $row;
+         $cvDataJSON = json_encode($cvData);
 
-    
-        $id=  $row['id'];
-        $firstname= $row['firstname']; 
-        $lastname= $row['lastname'];
-         $email= $row['email'];
-        $gender=  $row['gender'];
-        $password=  $row['password'];
-        
+        }
+    } else {
+        echo "Aucune donnée disponible.";
+    }
+echo "<script>var cvData = " . $cvDataJSON . ";</script>";
+ ?>
+ 
+ 
+ 
+ <script>
+let compte = document.getElementById("compte");
+let certi = document.getElementById("certi");
+let dipl = document.getElementById("dipl");
+
+let competance = document.getElementById("price");
+let certificat = document.getElementById("taxes");
+let anne = document.getElementById("ads");
+let diplom = document.getElementById("discount");
+let total = document.getElementById("total");
+
+ let cvArray = [];
+
+// Vérifier si les données sont présentes
+if (typeof cvData !== 'undefined') {
+    // Parcourir les données récupérées depuis PHP
+    for (let i = 0; i < cvData.length; i++) {
+        // Créer un objet CV à partir des données
+        let cv = {
+    id: cvData[i]['id_li'],
+    idc: cvData[i]['idc'],
+    diplom: cvData[i]['diplom'],
+    certificat: cvData[i]['certificat'],
+    ann_exp: cvData[i]['ann_exp'],
+    competence: cvData[i]['competence'],
+    score: {
+        scom: null,
+        scer: null,
+        sdip: null,
+        sann: null,
+        stotal: null
+    }
+};
+
+
+        // Ajouter l'objet CV au tableau
+        cvArray.push(cv);
+    }
+    console.log(cvArray); 
+} else {
+    console.log("Aucune donnée disponible.");
+}
+function redirectToEmail(email) {
+        window.location.href = "mailto:" + email;
+    }
+function showdata(){
+    let table = '';
+    for(let i = 0; i < cvArray.length; i++){
        
-?>
-<tr>
-    <td><?php $id ?></td>
-    <td><?php $firstname ?></td>
-    <td><?php $lastname ?></td>
-    <td><?php $email ?></td>
-    <td><?php $gender ?></td>
-    <td><?php $password ?></td>
-    
-    
-</tr>
-   <?php }
-   }else{
-   echo "non";}?>        
-          
+        table += `<tr>
+            <td>${i}</td>
+            <td>${cvArray[i].idc}</td>
+            <td>${cvArray[i].diplom}</td>
+            <td>${cvArray[i].certificat}</td>
+            <td>${cvArray[i].ann_exp}</td>
+            <td>${cvArray[i].competence}</td>
+            <td></td>
+            <td><button onclick="redirectToEmail('${cvArray[i].idc}')" style ="padding:10px;">email</button></td>
+            
+        </tr>`;
+    }
+    document.getElementById("tbdy").innerHTML = table;
+    // Faites quelque chose avec la variable "table", par exemple, l'insérer dans votre tableau HTML
+}
+function redirectToEmail(email) {
+        window.location.href = "mailto:" + email;
+    }
+showdata()
+
+
+// Parcourez chaque objet dans cvArray
+function splice1(j, data) {
+    let comp = cvArray[j].competence.split(":").map(skill => skill.trim().toLowerCase());
+    let coms = [];
+
+    for (let i = 0; i < comp.length; i++) {
+        let skills = comp[i].split(",").map(skill => skill.trim().toLowerCase());
+        coms = coms.concat(skills);
+    }
+
+    return coms.includes(data.toLowerCase());
+}
+
+for (let i = 0; i < cvArray.length; i++) {
+        if (competance.value !== '') {
+            if(title.value !=""){
+                if(splice1(i,title.value)){
+                    cvArray[i].score.scom=competance.value;
+                }
+
+            }
+        }}
+
+
+
+function score() {
+    for (let i = 0; i < cvArray.length; i++) {
+        cvArray[i].score = {
+            scom: 0,
+            scer: 0,
+            sdip: 0,
+            sann: 0,
+            stotal: 0
+        };
+    }
+
+    for (let i = 0; i < cvArray.length; i++) {
+        if (competance.value !== '') {
+            if(compte.value !=""){
+                if(splice1(i,compte.value)){
+                    cvArray[i].score.scom=parseFloat(competance.value);
+                }
+
+            }
+            else{
+                if(cvArray[i].competence!=""){
+                cvArray[i].score.scom=parseFloat(competance.value)+cvArray[i].competence.split(',').length;  
+            }}
+        }
+
+
+        if (diplom.value !== '') {
+            if(dipl.value !=""){
+                if(dipl.value==cvArray[i].diplom){
+                    cvArray[i].score.sdip=parseFloat(diplom.value);
+                }
+
+            }
+            else{
+                if(cvArray[i].diplom!=""){
+                cvArray[i].score.scom=parseFloat(diplom.value)+cvArray[i].diplom.split(',').length;  
+            }}}
+        
+
+        if (anne.value !== '') {
+    if (cvArray[i].ann_exp !== "") {
+        let sana = cvArray[i].ann_exp.split(" ");
+        // Vérifier si la deuxième partie de la chaîne est un nombre valide
+        if (!isNaN(parseFloat(sana[0]))) {
+            // Multiplier cvArray[i].score.sann par la deuxième partie de la chaîne
+            cvArray[i].score.sann = parseFloat(sana[0])+parseFloat(anne.value);
+        } else {
+            // Si la deuxième partie n'est pas un nombre valide, ne pas effectuer de multiplication
+            cvArray[i].score.sann = 0;
+        }
+    }
+}
+
+        if (certificat.value !== '') {
+            if(certi.value !=""){
+                if(splice1(i,title.value)){
+                    cvArray[i].score.scer=parseFloat(certificat.value);
+                }
+
+            }
+            else{
+                if(cvArray[i].certificat!=""){
+                cvArray[i].score.scom=parseFloat(certificat.value)+cvArray[i].certificat.split(',').length;  
+            }}
+        }
+
+        cvArray[i].score.stotal = (cvArray[i].score.scer + cvArray[i].score.sdip + cvArray[i].score.sann + cvArray[i].score.scom) / 4;
+    }
+}
+
+
+
+
+// Trier le tableau cvArray en fonction du score
+
+
+function search(){
+    if(competance.value!="" ||anne.value!=""||certificat.value!=""||diplom.value!=""){
+    let table = '';
+cvArray.sort((a, b) => b.score.stotal - a.score.stotal);
+for(let i=0;i<cvArray.length;i++){
+  
+    table += `<tr>
+            <td>${i}</td>
+            <td>${cvArray[i].idc}</td>
+            <td>${cvArray[i].diplom}</td>
+            <td>${cvArray[i].certificat}</td>
+            <td>${cvArray[i].ann_exp}</td>
+            <td>${cvArray[i].competence}</td>
+            <td>${cvArray[i].score.stotal}</td>
+            <td><button onclick="redirectToEmail('${cvArray[i].idc}')" style ="padding:10px;">e-mail</button></td>
+
+            
+        </tr>`;
+   
+  cvArray.sort((a, b) => b.score.stotal - a.score.stotal);
+}
+document.getElementById("tbdy").innerHTML = table;
+}
+else{
+    showdata();
+}
+
+}
+
+</script>
+ 
+         
+         
     
         
         
@@ -124,6 +323,6 @@ if($result->num_rows>0){
        </div>
         
     </section>
-    <script src="../js/main.js"></script>
+    <script src=""></script>
 </body>
 </html>

@@ -20,11 +20,11 @@ body{
 }
 input{
     width: 100%;
-    height: 30px;
+    height: 38px;
     outline: none;
     border: none;
     background: #111;
-    margin: 4px 0;
+    margin: 8px 0;
     border-radius: 4px;
     padding: 4px;
     color: #fff;
@@ -62,12 +62,9 @@ button:hover{
     background: #51025f;
     letter-spacing: 1px;
 }
-.btnsearch{
-    display: flex;
-    justify-content: space-between;
-}
+  
 .btnsearch button{
-    width: 45%;
+    width: 100%;
 }
 table{
     width: 100%;
@@ -164,7 +161,7 @@ a{
     justify-content: center;
     align-items: center;
     position: relative;
-    height: 100vh;
+    
     width: 100%;
     background: url(674.jpg);
     background-size: cover;
