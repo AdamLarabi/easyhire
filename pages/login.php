@@ -105,6 +105,13 @@
           $_SESSION['poste'] = $ligne2['poste'];
           $_SESSION['idx'] = $ligne2['IDR'];
           $_SESSION['image'] = $ligne2['image'];
+          $_SESSION['telephone'] = $ligne2['telephone'];
+          $_SESSION['date'] = $ligne2['date'];
+          $_SESSION['adresse'] = $ligne2['adresse'];
+          $_SESSION['email'] = $ligne2['email'];
+          $_SESSION['anne'] = $ligne2['ann'];
+          $_SESSION['diplome'] = $ligne2['diplome'];
+          $_SESSION['depart'] = $ligne2['depart'];
           header("location:home.php");
           exit();
         } else {//candidat
@@ -114,9 +121,15 @@
           $_SESSION['poste'] = $ligne1['poste'];
           $_SESSION['idx'] = $ligne1['idc'];
           $_SESSION['image'] = $ligne1['image'];
+          $_SESSION['telephone'] = $ligne1['telephone'];
+          $_SESSION['date'] = $ligne1['date'];
+          $_SESSION['adresse'] = $ligne1['adresse'];
+          $_SESSION['email'] = $ligne1['email'];
+          $_SESSION['anne'] = $ligne1['ann'];
+          $_SESSION['diplome'] = $ligne1['diplome'];
+          $_SESSION['depart'] = $ligne1['depart'];
           header("location:home.php");
           exit();
-
         }
       } else {
         echo "<pre>          

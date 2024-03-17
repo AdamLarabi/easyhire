@@ -13,9 +13,24 @@ header {
   z-index: 1000;
   background-color: rgb(133, 214, 214);
   color: #fff;
-  padding: 10px 0;
+  
 }
 
+.BTN{
+margin-top: 10px;
+padding: 10px 20px;
+background-color: rgb(124, 207, 196);
+color: #fff;
+border: none;
+cursor: pointer;
+transition: background-color 0.3s ease;
+border-radius: 10px;
+}
+
+.BTN:hover {
+  background-color: rgb(53, 136, 212);;
+  opacity: 0.9;
+}
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -70,7 +85,7 @@ header {
 .profile .comptes img {
   width: 30px;
   height: auto; /* Laisser la hauteur s'ajuster automatiquement */
-  margin: 0 10px; /* Ajouter un peu d'espace entre les images */
+  margin: 0px; /* Ajouter un peu d'espace entre les images */
   margin-right: 53px;
 }
 
@@ -98,7 +113,8 @@ header {
 }
 
 .profile button:hover {
-  background-color: #f5630e;
+  background-color: rgb(53, 136, 212);;
+    opacity: 0.9;
 }
 
 .about-me textarea {
@@ -156,7 +172,8 @@ header {
 }
 
 .info-btn:hover {
-  background-color: #f5630e; /* Assombrir le fond lors du survol */
+  background-color: rgb(53, 136, 212);;
+    opacity: 0.9; /* Assombrir le fond lors du survol */
 }
 
 /* Pour souligner légèrement le bouton actif ou cliqué (facultatif) */
@@ -179,7 +196,8 @@ header {
 }
 
 .buttons button:hover {
-  background-color: #f5630e;
+  background-color: rgb(53, 136, 212);;
+    opacity: 0.9;
 }
 
 #langues {

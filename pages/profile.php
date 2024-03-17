@@ -19,14 +19,15 @@ session_start();
     <div class="container">
       <div class="header-content">
         <div class="logo">
-          <img src="logo.png" alt="Logo" />
+        <h4>Easy<span class="span">Hire</span></h4>
         </div>
         <div class="title">
-          <h4>EasyHire</h4>
         </div>
         <div class="navigation">
+          <form action="./home.php">
           <button class="btn">Accueil</button>
-          <button class="btn">Gestion Compte</button>
+          </form>
+         
         </div>
       </div>
     </div>
@@ -36,34 +37,37 @@ session_start();
     <div class="backgound">
       <div class="profile">
         <img src="uploads/<?php echo $_SESSION['image']; ?>" alt="Photo de profil" />
-        <p classe="nom">Nom et Prenom</p>
-        <p class="nom">Etudiant à la FST Settat, actuelement en licence</p>
+        <span><p classe="nom"><?php echo $_SESSION['prenom']." ".$_SESSION['nom']; ?></p></span>
+        <p class="nom"><?php echo $_SESSION['email']; ?></p>
         <form action="./New.php">
           <button class="btn change-photo">Extract CV</button>
         </form>
         <ul class="comptes">
-          <a href=""><img src="../img/icon-insta.png" alt="instag" /></a>
-          <a href=""><img src="../img/icon-linkedin.png" alt="LInkedin" /></a>
-          <a href=""><img src="../img/icon-twitter.png" alt="twitter" /></a>
+          <a href="https://facebook.com/" target="_black"><img src="../img/icon-insta.png" alt="instag" /></a>
+          <a href="https://www.instagram.com/"  target="_black"><img src="../img/icon-linkedin.png" alt="LInkedin" /></a>
+          <a href="https://twitter.com/?lang=fr"  target="_black"><img src="../img/icon-twitter.png" alt="twitter" /></a>
         </ul>
       </div>
 
       <div class="about-me">
-        <h2><span class="underline">About Me :</span></h2>
+        <h2><span class="underline">Infos :</span></h2>
         <textarea id="aboutMe" placeholder="Décrivez-vous..."></textarea>
       </div>
     </div>
 
-    <div class="container-main">
-      <div class="left">
+    <div class="hhhh">
+      
         <div class="personal-info">
-          <h2><span class="underline">Informations niveau1 :</span></h2>
-          <input type="text" id="nom" placeholder="Nom" />
-          <input type="text" id="prenom" placeholder="Prénom" />
-          <input type="tel" id="telephone" placeholder="Téléphone" />
-          <input type="email" id="email" placeholder="Email" />
-        </div>
-        <div class="other-info">
+          <h2><span class="underline">Mes Informations </span></h2>
+          <input type="text" id="nom" placeholder="Nom" disabled value="<?php echo $_SESSION['nom'];?>"/>
+          <input type="text" id="prenom" placeholder="Prénom" disabled value="<?php echo $_SESSION['prenom'];?>"/>
+          <input type="tel" id="telephone" placeholder="Téléphone" disabled value="<?php echo  $_SESSION['telephone'];?>"/>
+          <input type="email" id="email" placeholder="Email" disabled value="<?php echo $_SESSION['email'];?>"/>
+          <form action="../pages/zoneCandide.php">
+              <button  class="BTN">Plus d'info</button>
+              </form>
+</div>
+      <!--  <div class="other-info">
           <h2><span class="underline">Informations niveau 2 :</span></h2>
           <button id="btnCompetences" class="btn info-btn">Compétences</button><br /><br />
           <button id="btnFormation" class="btn info-btn">Formation</button><br /><br />
@@ -94,15 +98,15 @@ session_start();
         <h1>pour affichages des information N2 :</h1>
         <p>clique sur bouton pour visualiser!</p>
 
-        <!-- Cette section sera mise à jour dynamiquement avec JavaScript -->
-      </div>
-
+         Cette section sera mise à jour dynamiquement avec JavaScript -->
+      
+<!--
       <div class="right">
         <div class="job-suggestions">
           <h2><span class="underline">Suggestions d'emplois!</span></h2>
-          <!-- Conteneur scrollable pour les offres d'emplois -->
+         Conteneur scrollable pour les offres d'emplois 
           <div class="job-offers">
-            <!-- Structure de suggestion d'emploi -->
+            Structure de suggestion d'emploi 
             <div class="job-offer">
               <img src="../img/image_recrut.avif" alt="Recruteur" />
               <div>
@@ -134,9 +138,9 @@ session_start();
         <br />
         <div class="job-suggestions">
           <h2><span class="underline">Connaissez-vous?!</span></h2>
-          <!-- Conteneur scrollable pour les offres d'emplois -->
+           Conteneur scrollable pour les offres d'emplois
           <div class="job-offers">
-            <!-- Structure de suggestion d'emploi -->
+          Structure de suggestion d'emploi 
             <div class="job-offer">
               <img src="../img/image_recrut.avif" alt="Recruteur" />
               <div>
@@ -177,7 +181,7 @@ session_start();
         </p>
       </div>
     </div>
-  </footer>
+  </footer>-->
 
   <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
 
@@ -186,6 +190,24 @@ session_start();
   </script>
 
   <script src=" ../js/Profile.js"></script>
+  <style>
+    .span{
+      color:#007bff;
+    }
+    .hhhh{
+      text-align:center;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+    }
+    .logo{
+      font-size:20px;
+    }
+    img{
+      border:2px solid white;
+      border-radius:10px;
+    }
+  </style>
 </body>
 
 </html>
