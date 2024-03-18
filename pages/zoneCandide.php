@@ -36,7 +36,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // Parcourir chaque ligne de résultat
     while($row = $result->fetch_assoc()) {
-        // Accéder aux colonnes de chaque ligne
+        // Accéder aux colonnes de chaque lign
         $colonne1 = $row['competence'];
         $colonne2 = $row['ann_exp'];
         $colonne3 = $row['certificat'];
