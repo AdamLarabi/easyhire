@@ -16,14 +16,14 @@ let submit = document.getElementById("submit");
 let mood = 'create';
 let tmp;
 function gettotal(){
-    if(price.value != ''){
-        let result = (+price.value + +taxes.value + +ads.value) - +discount.value;
-    total.innerHTML = result
-    total.style.background = "green"
+    if(parseFloat(competance.value)>=10 ||(parseFloat(anne.value)>=10)||(parseFloat(anne.value)>=10)||(parseFloat(diplom.value)>=10)){
+        let result = (+comptance.value + +diplom.value + +certificat.value + +anne.value);
+    total.innerHTML = 'les champes doit etre inf a 10'
+    total.style.background = "red"
     }
     else{
-        total.innerHTML = '';
-        total.style.background ="red"; 
+        total.innerHTML = result;
+        total.style.background ="green"; 
     }
 }
 let datapro;

@@ -140,6 +140,7 @@ if (isset ($_POST['pub'])) {
                         } else {
                             echo "Aucune image trouvée pour cet utilisateur.";
                         }
+                        
 
                         ?>
 
@@ -157,6 +158,10 @@ if (isset ($_POST['pub'])) {
                         </strong>
                     </div>
                 </div>
+                <?php
+                    if($_SESSION["idx"]>=10000){
+                            echo '<button style ="padding:10px; background:#2fa3c79b; border-radius:10px;" border:2px solide #2fa3c79b;;> <a href="view.php" style="color:black;" class="more-details">Dashboard</a></button>';
+                        }?>
         </section>
 
         <section id="publication">
@@ -460,7 +465,16 @@ if (isset ($_POST['pub'])) {
     <footer>
         <p>&copy; 2024 Easy Hire. All rights reserved.</p>
     </footer>
+    <script>
+    // Sélection du bouton par son ID
+    
 
+    // Ajout d'un écouteur d'événement pour le clic sur le bouton
+    function buttooon() {
+        // Redirection vers la page souhaitée (remplacez "nouvelle_page.html" par l'URL de votre page de tableau de bord)
+        window.location.href = "view.php";
+    };
+</script>
     <script src=" ../js/home.js"></script>
     <script src=" ../js/Like.js"></script>
 </body>

@@ -55,8 +55,12 @@ include 'config.php'; ?>
                     <div class="btnsearch">
                         <button onclick="search()" id="searchtitle">search</button>
                         
+                        
                     </div>
                 </div>
+                <p id="error" style=" text-align: center;
+  background-color: #005af0;
+  padding: 5px; border-radius : 5px; display:none;"></p>
                 <div id="deleteall">
                     
                 </div>
@@ -169,7 +173,17 @@ function redirectToEmail(email) {
         window.location.href = "mailto:" + email;
     }
 showdata()
-
+function gettotal(){
+    if(parseFloat(competance.value)<=10 ||(parseFloat(anne.value)<=10)||(parseFloat(anne.value)<=10)||(parseFloat(diplom.value)<=10)){
+        let result = (+comptance.value + +diplom.value + +certificat.value + +anne.value);
+    total.innerHTML = result
+    total.style.background = "green"
+    }
+    else{
+        total.innerHTML = 'les champes doit etre inf a 10';
+        total.style.background ="red"; 
+    }
+}
 
 // Parcourez chaque objet dans cvArray
 function splice1(j, data) {
@@ -269,11 +283,12 @@ function score() {
 
 
 
+
 // Trier le tableau cvArray en fonction du score
 
 
 function search(){
-    if(competance.value!="" ||anne.value!=""||certificat.value!=""||diplom.value!=""){
+    if((competance.value!="" &&parseFloat(competance.value)<=10 )||(anne.value!="" &&parseFloat(anne.value)<=10)||(certificat.value!="" && parseFloat(anne.value)<=10)||(diplom.value!="" && parseFloat(diplom.value)<=10)){
     let table = '';
 cvArray.sort((a, b) => b.score.stotal - a.score.stotal);
 for(let i=0;i<cvArray.length;i++){
@@ -294,10 +309,20 @@ for(let i=0;i<cvArray.length;i++){
   cvArray.sort((a, b) => b.score.stotal - a.score.stotal);
 }
 document.getElementById("tbdy").innerHTML = table;
+
+}
+else if(parseFloat(competance.value)>=10 ||(parseFloat(anne.value)>=10)||(parseFloat(anne.value)>=10)||(parseFloat(diplom.value)>=10)){
+    let par = document.getElementById("error");
+    par.innerHTML="les champs doivent etre inf a 10";
+    par.style.display="block";
+    showdata();
+
 }
 else{
     showdata();
+    par.style.display="none";
 }
+
 
 }
 
