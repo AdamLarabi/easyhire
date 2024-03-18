@@ -11,12 +11,12 @@ include 'config.php'; ?>
 <body>
 <header class="header">
         <nav class="nav">
-            <a href="#" class="nav_logo">eazy.he</a>
+            <a href="home.php" class="nav_logo">eazy.he</a>
             <ul class="nav_items">
                 <li class="nav_item">
-                    <a href="home.php" class="linkn">Home</a>
-                    <a href="#" class="linkn">About</a>
-                    <a href="#" class="linkn">contact</a>
+                    
+                    <a href="../Homepages/Apropos.html" class="linkn">About</a>
+                    <a href="../Homepages/contactez.html" class="linkn">contact</a>
                 </li>
             </ul>
         </nav>
