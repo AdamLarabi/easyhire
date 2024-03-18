@@ -181,7 +181,7 @@ session_start();
         <h3>&copy;2024 EasyHire. Tous droits réservés.</h3>
         </p>
       </div>
-    </div>
+    </div
   </footer>-->
 
       <script
