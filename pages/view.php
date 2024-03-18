@@ -14,7 +14,7 @@ include 'config.php'; ?>
             <a href="#" class="nav_logo">eazy.he</a>
             <ul class="nav_items">
                 <li class="nav_item">
-                    <a href="#" class="linkn">Home</a>
+                    <a href="home.php" class="linkn">Home</a>
                     <a href="#" class="linkn">About</a>
                     <a href="#" class="linkn">contact</a>
                 </li>
@@ -318,9 +318,14 @@ else if(parseFloat(competance.value)>=10 ||(parseFloat(anne.value)>=10)||(parseF
     showdata();
 
 }
-else{
-    showdata();
+else if(parseFloat(competance.value)<=10 ||(parseFloat(anne.value)<=10)||(parseFloat(anne.value)<=10)||(parseFloat(diplom.value)<=10)){
+    let par = document.getElementById("error");
+    par.innerHTML="";
     par.style.display="none";
+    showdata();
+    
+}else{
+    showdata();
 }
 
 
