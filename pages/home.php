@@ -3,27 +3,27 @@
 
 session_start();
 
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($_POST['pub'])) {
+    header("Location: home.php");
+}
+
+
 $sql = " SELECT * FROM candidat where idc!='{$_SESSION['idx']}'";
 $all = mysqli_query($conn, $sql);
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset ($_POST['commenter'])) {
-    header("Location: {$_SERVER['REQUEST_URI']}");
-}
 
 
 //pour stockée les postes dans bd
 if (isset ($_POST['pub'])) {
-    $query_max_id = "SELECT MAX(id_poste) AS max_id FROM poste";
-    $result_max_id = mysqli_query($conn, $query_max_id);
-    $row_max_id = mysqli_fetch_assoc($result_max_id);
-    $id = $row_max_id['max_id'] + 1;
     $nom = $_SESSION['prenom'];
     $prenom = $_SESSION['nom'];
     $com = $nom . ' ' . $prenom;
     $file = $_FILES['image']['name'];
     $textposte = $_POST['textposte'];
     $idx = $_SESSION['idx'];
-    $insert = "INSERT INTO poste  VALUES ('$id','$com', '$textposte', '$file', '$idx')";
+    $insert = "INSERT INTO poste (nom_prenom, paragraphe, document, idX) VALUES (?, ?, ?, ?)";
+    $stmt = mysqli_prepare($conn, $insert);
+    mysqli_stmt_bind_param($stmt, "sssi", $com, $textposte, $file, $idx);
+    mysqli_stmt_execute($stmt);
 
     $q = mysqli_query($conn, $insert);
     if ($q) {
@@ -43,6 +43,7 @@ if (isset ($_POST['pub'])) {
     <title>Easy Hire</title>
     <link rel="stylesheet" href="../css/home.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 </head>
 
@@ -197,20 +198,6 @@ if (isset ($_POST['pub'])) {
                     <ul>
                         <li>
                             <div>
-                                <a href="#ac" class="x">
-                                    <i class='bx bxs-image'>Media</i>
-                                    <!-- <input type="file" name="" id=""> -->
-                                </a>
-                            </div>
-                        </li>
-                        <li>
-                            <div>
-                                <a href="#res"><i class='bx bxs-calendar'>Events</i></a>
-                                <!-- <input type="date" name="" id=""> -->
-                            </div>
-                        </li>
-                        <li>
-                            <div>
                                 <a href="#" onclick="openModal();"><i class='bx bxs-edit-alt'>Poster</i></a>
                                 <!-- ouvrir une petite fentre pour poster -->
                             </div>
@@ -293,14 +280,11 @@ if (isset ($_POST['pub'])) {
                 ?>
 
                 <script>
-
                     document.querySelectorAll('.suivre').forEach(button => {
                         button.addEventListener('click', function (event) {
                             event.preventDefault();
                             var idc = button.getAttribute('data-idc');
-
                             var suivre = button.innerHTML.includes("suivre");
-
                             // Envoyer une requête AJAX pour suivre ou arrêter de suivre l'utilisateur en fonction de l'état actuel
                             var xhr = new XMLHttpRequest();
                             xhr.open('GET', 'home.php?idc=' + idc + '&suivre=' + (suivre ? 'true' : 'false'), true);
@@ -314,8 +298,6 @@ if (isset ($_POST['pub'])) {
                             xhr.send();
                         });
                     });
-
-
                 </script>
             </div>
         </section>
@@ -323,7 +305,7 @@ if (isset ($_POST['pub'])) {
 
     <?php
 
-    $req = "SELECT * from poste";
+    $req = "SELECT * from poste order by id_poste desc";
     $q = mysqli_query($conn, $req);
     if (mysqli_num_rows($q) == 0) {
 
@@ -340,23 +322,37 @@ if (isset ($_POST['pub'])) {
                 $nom = $parts[1];
                 $req_image_x_poste = "
                 (SELECT image
-                FROM poste, candidat
-                WHERE prenom='{$prenom}'
-                and nom='{$nom}'
-                and idX=idc)
+                FROM candidat
+                WHERE {$row['idX']}=idc)
                 UNION
                 (SELECT image
-                FROM poste, recruteur
-                WHERE prenom='{$prenom}'
-                and nom='{$nom}'
-                and IDR=idx)
+                FROM  recruteur
+                WHERE IDR={$row['idX']})
                 ";
 
-                $resultat = mysqli_query($conn, $req_image_x_poste);
+                $req_poste = "
+                (SELECT poste
+                FROM candidat
+                WHERE {$row['idX']}=idc)
+                UNION
+                (SELECT poste
+                FROM  recruteur
+                WHERE IDR={$row['idX']})
+                ";
 
-                if (mysqli_num_rows($resultat) > 0) {
-                    $row_YES = mysqli_fetch_assoc($resultat);
+                $resultat1 = mysqli_query($conn, $req_image_x_poste);
+                $resultat2 = mysqli_query($conn, $req_poste);
+
+                if (mysqli_num_rows($resultat1) > 0) {
+                    $row_YES = mysqli_fetch_assoc($resultat1);
                     $image = $row_YES['image'];
+                } else {
+                    echo "Aucune image trouvée pour ce poste.";
+                }
+
+                if (mysqli_num_rows($resultat2) > 0) {
+                    $row_poste = mysqli_fetch_assoc($resultat2);
+                    $Post = $row_poste['poste'];
                 } else {
                     echo "Aucune image trouvée pour ce poste.";
                 }
@@ -372,13 +368,128 @@ if (isset ($_POST['pub'])) {
                                 <h4 name='post_nom'>
                                     <?php echo $row['nom_prenom'] ?>
                                 </h4>
-                                <p name='post_description'>Developper</p>
+                                <p name='post_description'>
+                                    <?php echo $Post ?>
+                                </p>
                             </div>
-                            <div class='etat'>
-                                <p>• followed</p>
-                                <!-- button de follow -->
+                            <div class='etat' style="cursor: pointer;">
+                                <?php
+                                $x_name = $_SESSION['prenom'] . " " . $_SESSION['nom'];
+                                $etat_follow = "
+                                SELECT COUNT(*) FROM FOLLOW 
+                                WHERE follower = '$x_name' 
+                                AND following = '{$row['nom_prenom']}'
+                                ";
+                                $res = mysqli_query($conn, $etat_follow);
+
+                                if ($res) {
+                                    $ma_ligne = mysqli_fetch_array($res);
+                                    $count = $ma_ligne[0];
+
+                                    if ($count != 0) {
+                                        echo "<p class='etat-f'>• Suivi</p>";
+                                    } else {
+                                        echo "<p class='etat-f'>• Suivre</p>";
+                                    }
+                                } else {
+
+                                    echo "Erreur dans la requête SQL : " . mysqli_error($conn);
+                                }
+                                ?>
+                                <script>
+                                    document.querySelectorAll('.etat-f').forEach(paragraph => {
+                                        paragraph.addEventListener("click", function () {
+                                            var suivre = paragraph.innerHTML.includes("Suivi");
+                                            paragraph.innerHTML = suivre ? "• Suivre" : "• Suivi";
+                                            paragraph.focus();
+                                        });
+                                    });
+                                </script>
                             </div>
+
+                            <script>
+                                document.querySelectorAll('.discussion').forEach(button => {
+                                    button.addEventListener('click', function (event) {
+                                        event.preventDefault();
+                                        var idposte = button.getAttribute('data-idx');
+
+                                        // Vérifier si idx est défini
+                                        if (idposte) {
+                                            var xhr = new XMLHttpRequest();
+                                            xhr.open('GET', 'home.php?idx=' + idposte, true);
+                                            xhr.onreadystatechange = function () {
+                                                if (xhr.readyState == 4 && xhr.status == 200) {
+                                                    console.log("validee pour le poste avec l'ID : " + idposte); // Afficher la réponse du serveur spécifique au poste
+                                                }
+                                            };
+                                            xhr.send();
+                                        } else {
+                                            console.log("ID non défini dans l'URL");
+                                        }
+                                    });
+                                });
+
+                            </script>
+                            <?php
+                            $recepteur = "x";
+                            if (isset ($_POST['discuter']) && $_POST['post_Id'] == $row['id_poste']) {
+                                $msg = mysqli_real_escape_string($conn, $_POST['textmsg']);
+                                $emetteur = $_SESSION['prenom'] . " " . $_SESSION['nom'];
+                                $idp = $row['id_poste'];
+                                $recepteur = $row['nom_prenom'];
+                                $insert = "INSERT INTO messagerie (emetteur, recepteur, msg) VALUES ('$emetteur','$recepteur', '$msg')";
+                                $qqq = mysqli_query($conn, $insert);
+
+                                if (!$qqq) {
+                                    echo "Erreur lors de l'insertion du commentaire: " . mysqli_error($conn);
+                                } else {
+                                    echo
+                                        "inserted"
+                                    ;
+                                }
+                                // $comment = '';
+                            }
+                            ?>
+
+
+                            <div class="fnt">
+                                <div class="fnt-cnt">
+                                    <span class="close closex">x</span>
+                                    <form method="post">
+                                        <label for="">
+                                            <?php echo $recepteur; ?>
+                                        </label>
+                                        <textarea class="area" name="textmsg" placeholder=" Ecrire votre msg ici "></textarea>
+                                        <button name="discuter" type="submit" data-idx="<?php echo $row["id_poste"]; ?>"
+                                            class="discussion">Envoyer</button>
+                                        <input type='hidden' name='post_Id' value='<?php echo $row['id_poste']; ?>'>
+
+                                    </form>
+                                </div>
+                            </div>
+                            <main id="span-id">
+                                <span nom="span-id">
+                                    <button id="offset" name="offset" class='bx bx-paper-plane' onclick=displaywin()></button>
+                                </span>
+                            </main>
                         </div>
+                        <script>
+                            // Votre code JavaScript ici
+                            var offset = document.getElementById("offset");
+                            var fnt = document.querySelector(".fnt");
+
+                            function displaywin() {
+                                fnt.style.display = "block";
+                            }
+
+                            offset.addEventListener("click", displaywin);
+
+                            var close = document.querySelector(".closex");
+                            close.addEventListener("click", function () {
+                                fnt.style.display = "none";
+                            });
+                        </script>
+
                         <div class='art-pub'>
                             <div class='pub-p'>
                                 <p name='post_pub_parag'>
@@ -398,7 +509,7 @@ if (isset ($_POST['pub'])) {
                             <?php $reqqq = $conn->query("SELECT COUNT(*) FROM commentaire WHERE idp = " . $row['id_poste']);
                             $count = $reqqq->fetch_row()[0]; ?>
                             <button class='data'>
-                                <i class='bx bx-comment'></i>
+                                <i class='bx bx-comment xx'></i>
                                 <span>
                                     <?php echo $count ?>
                                 </span>

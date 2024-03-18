@@ -19,15 +19,15 @@ session_start();
     <div class="container">
       <div class="header-content">
         <div class="logo">
-        <h4>Easy<span class="span">Hire</span></h4>
+          <h4>Easy<span class="span">Hire</span></h4>
         </div>
         <div class="title">
         </div>
         <div class="navigation">
           <form action="./home.php">
-          <button class="btn">Accueil</button>
+            <button class="btn">Accueil</button>
           </form>
-         
+
         </div>
       </div>
     </div>
@@ -37,15 +37,15 @@ session_start();
     <div class="backgound">
       <div class="profile">
         <img src="uploads/<?php echo $_SESSION['image']; ?>" alt="Photo de profil" />
-        <span><p classe="nom"><?php echo $_SESSION['prenom']." ".$_SESSION['nom']; ?></p></span>
-        <p class="nom"><?php echo $_SESSION['email']; ?></p>
+        <p classe="nom">Nom et Prenom</p>
+        <p class="nom">Etudiant à la FST Settat, actuelement en licence</p>
         <form action="./New.php">
           <button class="btn change-photo">Extract CV</button>
         </form>
         <ul class="comptes">
           <a href="https://facebook.com/" target="_black"><img src="../img/icon-insta.png" alt="instag" /></a>
-          <a href="https://www.instagram.com/"  target="_black"><img src="../img/icon-linkedin.png" alt="LInkedin" /></a>
-          <a href="https://twitter.com/?lang=fr"  target="_black"><img src="../img/icon-twitter.png" alt="twitter" /></a>
+          <a href="https://www.instagram.com/" target="_black"><img src="../img/icon-linkedin.png" alt="LInkedin" /></a>
+          <a href="https://twitter.com/?lang=fr" target="_black"><img src="../img/icon-twitter.png" alt="twitter" /></a>
         </ul>
       </div>
 
@@ -56,17 +56,18 @@ session_start();
     </div>
 
     <div class="hhhh">
-      
-        <div class="personal-info">
-          <h2><span class="underline">Mes Informations </span></h2>
-          <input type="text" id="nom" placeholder="Nom" disabled value="<?php echo $_SESSION['nom'];?>"/>
-          <input type="text" id="prenom" placeholder="Prénom" disabled value="<?php echo $_SESSION['prenom'];?>"/>
-          <input type="tel" id="telephone" placeholder="Téléphone" disabled value="<?php echo  $_SESSION['telephone'];?>"/>
-          <input type="email" id="email" placeholder="Email" disabled value="<?php echo $_SESSION['email'];?>"/>
-          <form action="../pages/zoneCandide.php">
-              <button  class="BTN">Plus d'info</button>
-              </form>
-</div>
+
+      <div class="personal-info">
+        <h2><span class="underline">Mes Informations </span></h2>
+        <input type="text" id="nom" placeholder="Nom" disabled value="<?php echo $_SESSION['nom']; ?>" />
+        <input type="text" id="prenom" placeholder="Prénom" disabled value="<?php echo $_SESSION['prenom']; ?>" />
+        <input type="tel" id="telephone" placeholder="Téléphone" disabled
+          value="<?php echo $_SESSION['telephone']; ?>" />
+        <input type="email" id="email" placeholder="Email" disabled value="<?php echo $_SESSION['email']; ?>" />
+        <form action="../pages/zoneCandide.php">
+          <button class="BTN">Plus d'info</button>
+        </form>
+      </div>
       <!--  <div class="other-info">
           <h2><span class="underline">Informations niveau 2 :</span></h2>
           <button id="btnCompetences" class="btn info-btn">Compétences</button><br /><br />
@@ -99,8 +100,8 @@ session_start();
         <p>clique sur bouton pour visualiser!</p>
 
          Cette section sera mise à jour dynamiquement avec JavaScript -->
-      
-<!--
+
+      <!--
       <div class="right">
         <div class="job-suggestions">
           <h2><span class="underline">Suggestions d'emplois!</span></h2>
@@ -183,31 +184,35 @@ session_start();
     </div>
   </footer>-->
 
-  <script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
+      <script
+        src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag@2.0.1/dist/js/multi-select-tag.js"></script>
 
-  <script>
-    new MultiSelectTag("langues"); // id
-  </script>
+      <script>
+        new MultiSelectTag("langues"); // id
+      </script>
 
-  <script src=" ../js/Profile.js"></script>
-  <style>
-    .span{
-      color:#007bff;
-    }
-    .hhhh{
-      text-align:center;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-    }
-    .logo{
-      font-size:20px;
-    }
-    img{
-      border:2px solid white;
-      border-radius:10px;
-    }
-  </style>
+      <script src=" ../js/Profile.js"></script>
+      <style>
+        .span {
+          color: #007bff;
+        }
+
+        .hhhh {
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .logo {
+          font-size: 20px;
+        }
+
+        img {
+          border: 2px solid white;
+          border-radius: 10px;
+        }
+      </style>
 </body>
 
 </html>
