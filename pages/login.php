@@ -46,10 +46,10 @@
   </div>
 
   <?php
-  $host = 'localhost';
-  $user = 'root';
-  $pass = '';
-  $db = 'inscription';
+  $host = 'sql205.infinityfree.com';
+  $user = 'if0_39025104';
+  $pass = 'CvCOW8DwR7S8w';
+  $db = 'if0_39025104_inscription';
   $conn = mysqli_connect($host, $user, $pass, $db);
 
   if (!$conn) {
